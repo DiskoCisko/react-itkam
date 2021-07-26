@@ -1,0 +1,10 @@
+.wrp {
+    padding-top: 20px;
+    display: flex;
+}
+.img {
+    width: 230px;
+}
+.content {
+    margin-left: 20px;
+}
