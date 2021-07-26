@@ -10,7 +10,6 @@ import {onFollow,
     changeTotalCountPage,
     onFetch,
     fetchingFollow,
-    onFetchFollow
 } from '../../reduxe/actions'
 
 
@@ -105,6 +104,5 @@ export default connect(mapStateToProps, {
     changePage,
     changeTotalCountPage,
     onFetch,
-    onFetchFollow,
     fetchingFollow
 } )(UserCAPI)

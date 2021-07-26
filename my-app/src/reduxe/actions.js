@@ -9,7 +9,6 @@ export const TOOGLE_IS_FETCH = 'TOOGLE_IS_FETCH';
 export const SET_PROFILE = 'SET_PROFILE';
 export const SET_AUTH = 'SET_AUTH';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
-export const ON_FECHING_FOLLOW = 'ON_FECHING_FOLLOW';
 
 export const onAddPost = (body) => {
     return {
@@ -70,11 +69,6 @@ export const setAuth = (body) => {
     return {
         type: SET_AUTH,
         payload: body
-    }
-}
-export const onFetchFollow = () => {
-    return {
-        type: ON_FECHING_FOLLOW
     }
 }
 export const fetchingFollow = (isFething, userId) => {
