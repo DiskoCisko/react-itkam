@@ -1,0 +1,12 @@
+.navbar {
+    padding: 0;
+}
+.item {
+    margin: 0;
+    font-size: 20px;
+    line-height: 34px;
+    display: block;
+}
+.active {
+    color: red;
+}

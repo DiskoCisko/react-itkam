@@ -1,0 +1,14 @@
+
+.post {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.postText {
+    margin-left: 20px;
+    font-size: 20px;
+}
+.friendImg {
+    width: 70px;
+    border-radius: 50%;
+}

@@ -1,0 +1,8 @@
+.active {
+    font-weight: bold;
+}
+span {
+    cursor: pointer;
+    display: inline;
+    margin-right: 5px;
+}

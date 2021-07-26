@@ -1,0 +1,10 @@
+.title {
+    color: red;
+}
+.content {
+    display: grid;
+    grid-template-columns: 10% 90%;
+}
+span {
+    display: block;
+}
