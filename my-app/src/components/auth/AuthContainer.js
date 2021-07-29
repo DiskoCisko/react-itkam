@@ -1,4 +1,4 @@
-import Auth from './Auth';
+import Login from './Auth';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -6,4 +6,4 @@ const mapStateToProps = (state) => {
         login : state.auth.login
     }
 }
-export default connect(mapStateToProps, {})(Auth)
+export default connect(mapStateToProps, {})(Login)

@@ -19,22 +19,25 @@ export const userAPI = {
         })
     },
     followUser(id) {
-        return instence.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{},{
-            withCredentials: true,
-            headers: {
-                'API-KEY': '6a995dcb-f758-48c0-a11e-158549677c15'
-            }
-            
+        return instence.post(`follow/${id}`,{},{
+            withCredentials: true,    
         })
     },
     unfollowUser(id) {
-        return instence.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
+        return instence.delete(`follow/${id}`,{
             withCredentials: true,
-            headers: {
-                'API-KEY': '6a995dcb-f758-48c0-a11e-158549677c15'
-            }
-            
         })
     },   
+    getProfile (userId) {
+        return instence.get(`profile/${userId}`)
+    }
+}
+
+export const auth = {
+    me () {
+        return instence.get('auth/me', {
+            withCredentials: true
+        })  
+    }
     
 }

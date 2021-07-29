@@ -1,3 +1,6 @@
+
+import {userAPI, auth} from '../DAL/api';
+
 export const ADD_POST = 'ADD-POST';
 export const CHANGE_FORM = 'CHANGE-FORM';
 export const FOLLOW_USER = 'FOLLOW_USER';
@@ -9,6 +12,7 @@ export const TOOGLE_IS_FETCH = 'TOOGLE_IS_FETCH';
 export const SET_PROFILE = 'SET_PROFILE';
 export const SET_AUTH = 'SET_AUTH';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
+
 
 export const onAddPost = (body) => {
     return {
@@ -77,4 +81,64 @@ export const fetchingFollow = (isFething, userId) => {
         userId,
         isFething
     }
+}
+
+export const getUser = (currentPage, pageSize) => (dispatch) => {
+    dispatch(onFetch())
+    userAPI.getUsers(currentPage, pageSize)
+    .then(response => {
+        dispatch(onFetch())
+        dispatch(changeTotalCountPage(response.totalCount))
+        dispatch(setUsers(response.items))
+    })
+}
+
+export const changeUserPage = (currentPage, pageSize) => (dispatch) => {
+    dispatch(changePage(currentPage))
+    dispatch(onFetch())
+    userAPI.getUsers(currentPage, pageSize)
+    .then(response => {
+        dispatch(onFetch())
+        dispatch(setUsers(response.items))
+    })
+}
+
+export const follow = (id) => (dispatch) => {
+    dispatch(fetchingFollow(true, id))
+    userAPI.followUser(id)
+    .then((response)=>{
+        if(response.data.resultCode === 0) {
+            dispatch(onFollow(id))
+        }
+        dispatch(fetchingFollow(false, id))    
+        })
+}
+
+export const unfollow = (id) => (dispatch) => {
+    dispatch(fetchingFollow(true, id))
+    userAPI.unfollowUser(id)
+    .then((response)=>{
+        if(response.data.resultCode === 0) {
+            dispatch(onUnfollow(id))
+        }
+        dispatch(fetchingFollow(false, id))    
+        })
+}
+
+export const authUser = () => (dispatch) => {
+    auth.me()
+        .then((response)=>{
+            let {id, login, email} = response.data.data;
+            if (response.data.resultCode === 0) {
+                dispatch(setAuth({id,login,email}))
+            } 
+        })
+}
+
+export const getProfile = (userId) => (dispatch) => {
+    if(!userId) {
+        userId = 4
+      }
+      userAPI.getProfile(userId)
+      .then(response => dispatch(setProfile(response.data)))
 }

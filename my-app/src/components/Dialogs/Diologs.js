@@ -4,6 +4,7 @@ import ChatsList from './ChatsList';
 import Messages from './Messages';
 import {
     BrowserRouter as Router,
+    Redirect,
     Route
   } from "react-router-dom";
 
@@ -15,6 +16,8 @@ const Dialogs = (props) => {
          message={item}/>
     </Route>
     })
+    debugger
+    if (!props.isAuth) return <Redirect to="/login" />
 
     return (
         <div className={s.content}>

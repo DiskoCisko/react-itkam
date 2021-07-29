@@ -1,22 +1,16 @@
 
 import { connect } from 'react-redux'
 import Profile from './Profile';
-import {onAddPost, onChange, setProfile} from './../../reduxe/actions';
+import {onAddPost, onChange, getProfile} from './../../reduxe/actions';
 import React from 'react';
-import axios from 'axios';
 import Loader from '../common/Loader'
 import {
   withRouter
 } from "react-router-dom";
 class ProfileCAPI extends React.Component {
   componentDidMount = () => {
-
     let userId = this.props.match.params.userId
-    if(!userId) {
-      userId = 2
-    }
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-    .then(response => this.props.setProfile(response.data))
+    this.props.getProfile(userId)
   }
   
   render() {
@@ -31,12 +25,13 @@ const mapStateToProps = (state) => {
   return {
     posts: state.profile.posts,
     formValue: state.profile.formValue,
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    isAuth: state.auth.isAuth
   }
 }
 
 export default connect(mapStateToProps, {
   onAddPost,
   onChange,
-  setProfile
+  getProfile
 } )(withRouter(ProfileCAPI));
