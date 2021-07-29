@@ -1,15 +1,12 @@
 import React from 'react';
-import * as axios from 'axios';
 import User from './User';
 import { connect } from 'react-redux';
-import {userAPI} from './../../DAL/api'
-import {onFollow,
-    onUnfollow,
-    setUsers,
-    changePage,
+import {
     changeTotalCountPage,
-    onFetch,
-    fetchingFollow,
+    getUser,
+    changeUserPage,
+    follow,
+    unfollow
 } from '../../reduxe/actions'
 
 
@@ -26,60 +23,16 @@ const mapStateToProps = (state) => {
 }
 class UserCAPI extends React.Component {
     componentDidMount = () => {
-        this.props.onFetch()
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        .then(response => {
-            this.props.onFetch()
-            this.props.changeTotalCountPage(response.totalCount)
-            this.props.setUsers(response.items)
-        })
+        this.props.getUser(this.props.currentPage, this.props.pageSize)
     }
     onFollow = (e) => {
-        debugger
-        // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${e.target.id}`,{},{
-        //     withCredentials: true,
-        //     headers: {
-        //         'API-KEY': '6a995dcb-f758-48c0-a11e-158549677c15'
-        //     }
-            
-        // })
-        this.props.fetchingFollow(true, e.target.id)
-        userAPI.followUser(e.target.id)
-        .then((response)=>{
-            
-            if(response.data.resultCode === 0) {
-                this.props.onFollow(e.target.id)}
-                this.props.fetchingFollow(false, e.target.id)    
-            }
-            )  
+        this.props.follow(e.target.id)  
     }
     onUnfollow = (e) => {
-        // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${e.target.id}`,{
-        //     withCredentials: true,
-        //     headers: {
-        //         'API-KEY': '6a995dcb-f758-48c0-a11e-158549677c15'
-        //     }
-        // })
-        this.props.fetchingFollow(true, e.target.id)
-        userAPI.unfollowUser(e.target.id)
-        .then((response)=>{
-            if(response.data.resultCode === 0){
-                this.props.onUnfollow(e.target.id)
-            }
-            this.props.fetchingFollow(false, e.target.id)
-            })
-        
+        this.props.unfollow(e.target.id)
     }
     changePage = (p) => {
-        this.props.changePage(p)
-        this.props.onFetch()
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,{
-            withCredentials: true
-        })
-        .then(response => {
-            this.props.onFetch()
-            this.props.setUsers(response.data.items)
-        })
+        this.props.changeUserPage(p, this.props.pageSize)
     }
     render() {
        return <User
@@ -98,11 +51,9 @@ class UserCAPI extends React.Component {
 }
 
 export default connect(mapStateToProps, {
-    onFollow,
-    onUnfollow,
-    setUsers,
-    changePage,
     changeTotalCountPage,
-    onFetch,
-    fetchingFollow
+    getUser,
+    changeUserPage,
+    follow,
+    unfollow
 } )(UserCAPI)

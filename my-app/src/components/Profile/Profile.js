@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Profile.module.css';
 import Posts from './../Posts/Posts.js';
 import PostForm from './../Post_form/Post_form.js';
+import { Redirect } from 'react-router-dom';
 const Profile = (prpos) => {
   debugger;
   const contacts = []
@@ -16,6 +17,7 @@ const Profile = (prpos) => {
   let post = prpos.posts.map((item, index) => {
     return <Posts key={index} text={item.text} photo={prpos.profile.photos.small}/>
   })
+  if (!prpos.isAuth) return <Redirect to="/login" />
     return <>
     <video loop muted autoPlay className="video-wrp">
               <source src={process.env.PUBLIC_URL + "/video/v1.ogv"} type='video/ogg; codecs="theora, vorbis"'/>

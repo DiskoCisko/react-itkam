@@ -1,19 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setAuth} from './../../reduxe/actions';
+import {authUser} from './../../reduxe/actions';
 import Header from './Header';
-import axios from 'axios';
 
 class HeaderCAPI extends React.Component {
     componentDidMount = () => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-            withCredentials: true
-        })
-        .then((response)=>{
-            let {id, login, email} = response.data.data;
-            this.props.setAuth({id,login,email})
-            
-        })
+        this.props.authUser()
     }
     render() {
         debugger
@@ -30,4 +22,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {setAuth})(HeaderCAPI);
+export default connect(mapStateToProps, {authUser})(HeaderCAPI);

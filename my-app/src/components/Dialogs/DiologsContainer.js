@@ -5,9 +5,11 @@ import Dialogs from './Diologs';
 
 
 const mapStateToProps = (state) => {
+
     return {
         dataMessages: state.dialogs.dataMessages,
-        dataUsers: state.dialogs.dataUsers
+        dataUsers: state.dialogs.dataUsers,
+        isAuth: state.auth.isAuth
     }
 }
 
