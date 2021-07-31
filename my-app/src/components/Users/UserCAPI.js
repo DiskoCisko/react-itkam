@@ -8,6 +8,7 @@ import {
     follow,
     unfollow
 } from '../../reduxe/actions'
+import { compose } from 'redux';
 
 
 const mapStateToProps = (state) => {
@@ -50,10 +51,10 @@ class UserCAPI extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, {
+export default compose(connect(mapStateToProps, {
     changeTotalCountPage,
     getUser,
     changeUserPage,
     follow,
     unfollow
-} )(UserCAPI)
+} ))(UserCAPI)
