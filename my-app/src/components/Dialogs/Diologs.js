@@ -16,8 +16,8 @@ const Dialogs = (props) => {
          message={item}/>
     </Route>
     })
-    debugger
-    if (!props.isAuth) return <Redirect to="/login" />
+    
+    
 
     return (
         <div className={s.content}>

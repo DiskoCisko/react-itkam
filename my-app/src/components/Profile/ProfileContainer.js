@@ -7,6 +7,9 @@ import Loader from '../common/Loader'
 import {
   withRouter
 } from "react-router-dom";
+import {withAuthRedirect} from './../../HOC/withAuthRedirect';
+import { compose } from 'redux';
+
 class ProfileCAPI extends React.Component {
   componentDidMount = () => {
     let userId = this.props.match.params.userId
@@ -26,12 +29,15 @@ const mapStateToProps = (state) => {
     posts: state.profile.posts,
     formValue: state.profile.formValue,
     profile: state.profile.profile,
-    isAuth: state.auth.isAuth
   }
 }
 
-export default connect(mapStateToProps, {
-  onAddPost,
-  onChange,
-  getProfile
-} )(withRouter(ProfileCAPI));
+export default compose(
+  connect(mapStateToProps, {
+    onAddPost,
+    onChange,
+    getProfile
+  } ),
+  withRouter,
+  withAuthRedirect
+)(ProfileCAPI)
