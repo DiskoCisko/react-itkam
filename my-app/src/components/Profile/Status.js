@@ -3,12 +3,15 @@ import {useState} from 'react';
 
 const Status = (props) => {
     let [isEditMode, setIsEditeMode] = useState(false)
-    let [status, setStatus] = useState('Mystatus')
+    let [status, setStatus] = useState(props.status)
 
     let letEditStatus = () => {
-        setIsEditeMode(!isEditMode)
+        setIsEditeMode(true)
     }
-
+    let closeEditStatus = (e) => {
+        setIsEditeMode(false)
+        props.updateStatus(status)
+    }
     let changeStatus = (e) => {
         setStatus(e.target.value)
     }
@@ -19,7 +22,7 @@ const Status = (props) => {
     </>
     } else {
         return <input
-            onBlur={letEditStatus}
+            onBlur={closeEditStatus}
             onChange={changeStatus}
             placeholder={status}
         />

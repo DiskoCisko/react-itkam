@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Profile from './Profile';
-import {onAddPost, onChange, getProfile} from './../../reduxe/actions';
+import {onAddPost, getProfile, getStatus, updateStatus} from './../../reduxe/actions';
 import React from 'react';
 import Loader from '../common/Loader'
 import {
@@ -14,6 +14,7 @@ class ProfileCAPI extends React.Component {
   componentDidMount = () => {
     let userId = this.props.match.params.userId
     this.props.getProfile(userId)
+    this.props.getStatus(userId)
   }
   
   render() {
@@ -24,19 +25,19 @@ class ProfileCAPI extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  debugger
   return {
     posts: state.profile.posts,
-    formValue: state.profile.formValue,
     profile: state.profile.profile,
+    status: state.profile.status,
   }
 }
 
 export default compose(
   connect(mapStateToProps, {
     onAddPost,
-    onChange,
-    getProfile
+    getProfile,
+    getStatus,
+    updateStatus
   } ),
   withRouter,
   withAuthRedirect

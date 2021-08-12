@@ -1,8 +1,7 @@
 
-import {userAPI, auth} from '../DAL/api';
+import {userAPI, auth, profileAPI} from '../DAL/api';
 
 export const ADD_POST = 'ADD-POST';
-export const CHANGE_FORM = 'CHANGE-FORM';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 export const SET_USER = 'SET_USER';
@@ -10,20 +9,16 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const CHANGE_TOTAL_COUNT_PAGE = 'CHANGE_TOTAL_COUNT_PAGE';
 export const TOOGLE_IS_FETCH = 'TOOGLE_IS_FETCH';
 export const SET_PROFILE = 'SET_PROFILE';
+export const SET_STATUS = 'SET_STATUS';
+export const CHANGE_STAUS = 'CHANGE_STAUS';
 export const SET_AUTH = 'SET_AUTH';
+export const DEL_AUTH = 'DEL_AUTH';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
 
 export const onAddPost = (body) => {
     return {
         type: ADD_POST,
-        payload: body
-    }
-}
-
-export const onChange = (body) => {
-    return {
-        type: CHANGE_FORM,
         payload: body
     }
 }
@@ -69,10 +64,27 @@ export const setProfile = (body) => {
         payload: body
     }
 }
+export const setStatus = (status) => {
+    return {
+        type: SET_STATUS,
+        payload: status
+    }
+}
+export const changeStatus = (status) => {
+    return {
+        type: CHANGE_STAUS,
+        payload: status
+    }
+}
 export const setAuth = (body) => {
     return {
         type: SET_AUTH,
         payload: body
+    }
+}
+export const delAuth = () => {
+    return {
+        type: DEL_AUTH,
     }
 }
 export const fetchingFollow = (isFething, userId) => {
@@ -135,10 +147,60 @@ export const authUser = () => (dispatch) => {
         })
 }
 
+export const loginUser = (body) => (dispatch) => {
+    auth.login(body)
+        .then((response) => {
+            if (response.data.resultCode === 0) {
+                auth.me()
+                    .then((response)=>{
+                        let {id, login, email} = response.data.data;
+                        if (response.data.resultCode === 0) {
+                            dispatch(setAuth({id,login,email}))
+                        } 
+                    })
+            }
+        })
+}
+
+export const logoutUser = () => (dispatch) => {
+    auth.logout()
+        .then((response) => {
+            if (response.data.resultCode === 0) {
+                dispatch(delAuth());
+            }
+        })
+        
+}
+
 export const getProfile = (userId) => (dispatch) => {
     if(!userId) {
-        userId = 4
+        userId = 18155
       }
-      userAPI.getProfile(userId)
+      profileAPI.getProfile(userId)
       .then(response => dispatch(setProfile(response.data)))
+}
+
+export const getStatus = (userId) => (dispatch) => {
+    if(!userId) {
+        userId = 18155
+      }
+      profileAPI.getStatus(userId)
+      .then(response => {
+        debugger;
+        if (!response.data) {
+            response.data = "Without status"
+        }
+        dispatch(setStatus(response.data))})
+}
+export const updateStatus = (status) => (dispatch) => {
+    debugger
+    profileAPI.updateStatus({status: status})
+    .then(response => {
+        if (response.resultCode === 0 ) {
+            dispatch(changeStatus(status))
+        }
+    })
+    .catch(response => {
+        console.log(response)
+    })
 }
