@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { FOLLOW_USER } from '../reduxe/actions';
 
 const instence = axios.create({
     withCredentials: true,
@@ -28,13 +27,31 @@ export const userAPI = {
             withCredentials: true,
         })
     },   
+    
+}
+
+export const profileAPI = {
     getProfile (userId) {
         return instence.get(`profile/${userId}`)
+    },
+    getStatus (userId) {
+        return instence.get(`profile/status/${userId}`)
+    },
+    updateStatus (body) {
+        debugger
+        return instence.put(`profile/status`, body)
     }
 }
 
 export const auth = {
+    login(body) {
+        return instence.post(`auth/login`, body)
+    },
+    logout() {
+        return instence.delete(`auth/login`)
+    },
     me () {
+        debugger;
         return instence.get('auth/me', {
             withCredentials: true
         })  

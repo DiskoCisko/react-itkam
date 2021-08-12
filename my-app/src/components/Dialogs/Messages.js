@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Messages = (props) => {
+    debugger;
     return (        
         <p> 
             {props.message.message}

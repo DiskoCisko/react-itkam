@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {authUser} from './../../reduxe/actions';
+import {authUser, logoutUser} from './../../reduxe/actions';
 import Header from './Header';
 
 class HeaderCAPI extends React.Component {
@@ -12,6 +12,7 @@ class HeaderCAPI extends React.Component {
         return <Header
            setAuth ={this.props.setAuth}
            login={this.props.login}
+           logoutUser={this.props.logoutUser}
         />
     }
 }
@@ -22,4 +23,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {authUser})(HeaderCAPI);
+export default connect(mapStateToProps, {authUser, logoutUser})(HeaderCAPI);

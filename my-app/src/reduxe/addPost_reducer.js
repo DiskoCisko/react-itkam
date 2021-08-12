@@ -27,13 +27,18 @@ export const postReducer = (state = inintState, action) => {
                 ...state,
                 formValue: action.payload
             };
-            debugger
             return newState;
         case 'SET_PROFILE': {
-            debugger
             return {
                 ...state,
                 profile: action.payload
+            }
+        }
+        case 'SET_STATUS': {
+            debugger
+            return {
+                ...state,
+                status: action.payload
             }
         }
         default:

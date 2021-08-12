@@ -3,7 +3,7 @@
 }
 .container{
     display: grid;
-    grid-template-columns: 10% 80% 10%;
+    grid-template-columns: 10% 70% 10% 10%;
     padding-top: 28px;
     padding-bottom: 28px;
     align-items: center;
