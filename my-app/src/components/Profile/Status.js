@@ -1,14 +1,20 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 const Status = (props) => {
     let [isEditMode, setIsEditeMode] = useState(false)
     let [status, setStatus] = useState(props.status)
 
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
     let letEditStatus = () => {
-        setIsEditeMode(true)
+        if(props.id === props.userId) {
+            setIsEditeMode(true)
+        }
     }
-    let closeEditStatus = (e) => {
+    let closeEditStatus = () => {
         setIsEditeMode(false)
         props.updateStatus(status)
     }

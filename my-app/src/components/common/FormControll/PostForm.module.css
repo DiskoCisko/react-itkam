@@ -1,0 +1,61 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-bottom: 50px;
+}
+.textarea {
+    resize: none;
+    outline: none;
+    border: none;
+    background: #dbe7fd;
+    border-radius: 10px;
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: block;
+ }
+ .btn {
+    padding: 12px 18px;
+    color: #FFFFFF;
+    width: 91px;
+    height: 42px;
+    background: #3C64B1;
+    margin: 0px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.btn:hover {
+    transition: 0.3s;
+    background: #f1de70;
+}
+.formControll.error input,
+.formControll.error textarea {
+    border: 1px solid #E25822;;
+}
+.formControll.error span {
+    color: #E25822;;
+    display: block;
+    margin-bottom: 20px;
+}
+.lable {
+    display: block;
+    font-size: 16px;
+    line-height: 16px;
+    color: #343C44;
+    margin-bottom: 20px;
+}
+.input {
+    border-radius: 8px;
+    outline: none;
+    padding: 10px;
+    border: 1px solid #D6E4EC;
+    margin-bottom: 20px;
+}
+.input:hover {
+    transition: 0.5s;
+    border-color: #7480FF;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import s from './PostForm.module.css';
+import {requiredFilled, maxSymbols50} from "./../utils/validation.js"
+import {Textarea} from './../common/FormControll/Textarea.js'
 
 const PostForm = (props) => {
     return <div className={s.form}>
@@ -16,7 +18,12 @@ const FormContainer = ({handleSubmit, reset, addPost} ) => {
    reset();
  }
    return <form onSubmit={handleSubmit(submit)}>
-       <Field className={s.textarea} name="text" component="textarea" type="text" />
+       <Field
+       name="text" component={Textarea}
+       type="text"
+       placeholder="Your message"
+       validate={[requiredFilled, maxSymbols50]}
+       />
        <button className={s.btn}>Send</button>
    </form>
 }

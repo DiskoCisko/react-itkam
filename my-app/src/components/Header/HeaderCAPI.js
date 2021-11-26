@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {authUser, logoutUser} from './../../reduxe/actions';
+import {logoutUser} from './../../reduxe/actions';
 import Header from './Header';
+import { getLoginSelector } from './../../reduxe/selector';
 
 class HeaderCAPI extends React.Component {
-    componentDidMount = () => {
-        this.props.authUser()
-    }
+
     render() {
-        debugger
         return <Header
-           setAuth ={this.props.setAuth}
            login={this.props.login}
            logoutUser={this.props.logoutUser}
         />
@@ -19,8 +16,8 @@ class HeaderCAPI extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.auth.login
+        login: getLoginSelector(state),
     }
 }
 
-export default connect(mapStateToProps, {authUser, logoutUser})(HeaderCAPI);
+export default connect(mapStateToProps, {logoutUser})(HeaderCAPI);

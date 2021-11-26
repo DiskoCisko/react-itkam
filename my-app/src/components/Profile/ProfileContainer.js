@@ -7,12 +7,23 @@ import Loader from '../common/Loader'
 import {
   withRouter
 } from "react-router-dom";
-import {withAuthRedirect} from './../../HOC/withAuthRedirect';
 import { compose } from 'redux';
+import {
+  getPostsSelector,
+  getProfileSelector,
+  getStatusSelector,
+  getIdSelector
+} from './../../reduxe/selector'
 
 class ProfileCAPI extends React.Component {
   componentDidMount = () => {
     let userId = this.props.match.params.userId
+    if (!userId) {
+      userId = this.props.id
+      if (!userId) {
+        this.props.history.push('/login')
+      }
+    }
     this.props.getProfile(userId)
     this.props.getStatus(userId)
   }
@@ -26,9 +37,10 @@ class ProfileCAPI extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.profile.posts,
-    profile: state.profile.profile,
-    status: state.profile.status,
+    posts: getPostsSelector(state),
+    profile: getProfileSelector(state),
+    status: getStatusSelector(state),
+    id: getIdSelector(state)
   }
 }
 
@@ -40,5 +52,4 @@ export default compose(
     updateStatus
   } ),
   withRouter,
-  withAuthRedirect
 )(ProfileCAPI)

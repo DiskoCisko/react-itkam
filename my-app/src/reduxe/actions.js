@@ -1,4 +1,5 @@
 
+import { stopSubmit } from 'redux-form';
 import {userAPI, auth, profileAPI} from '../DAL/api';
 
 export const ADD_POST = 'ADD-POST';
@@ -13,6 +14,7 @@ export const SET_STATUS = 'SET_STATUS';
 export const CHANGE_STAUS = 'CHANGE_STAUS';
 export const SET_AUTH = 'SET_AUTH';
 export const DEL_AUTH = 'DEL_AUTH';
+export const SET_ERROR = 'SET_ERROR';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
 
@@ -87,6 +89,11 @@ export const delAuth = () => {
         type: DEL_AUTH,
     }
 }
+export const setError = () => {
+    return {
+        type: SET_ERROR,
+    }
+}
 export const fetchingFollow = (isFething, userId) => {
     return {
         type: TOGLE_FECHING_FOLLOW,
@@ -95,112 +102,89 @@ export const fetchingFollow = (isFething, userId) => {
     }
 }
 
-export const getUser = (currentPage, pageSize) => (dispatch) => {
+export const getUser = (currentPage, pageSize) => async (dispatch) => {
     dispatch(onFetch())
-    userAPI.getUsers(currentPage, pageSize)
-    .then(response => {
-        dispatch(onFetch())
-        dispatch(changeTotalCountPage(response.totalCount))
-        dispatch(setUsers(response.items))
-    })
+    let response = await userAPI.getUsers(currentPage, pageSize)
+    dispatch(onFetch())
+    dispatch(changeTotalCountPage(response.totalCount))
+    dispatch(setUsers(response.items))
 }
 
-export const changeUserPage = (currentPage, pageSize) => (dispatch) => {
+export const changeUserPage = (currentPage, pageSize) => async (dispatch) => {
     dispatch(changePage(currentPage))
     dispatch(onFetch())
-    userAPI.getUsers(currentPage, pageSize)
-    .then(response => {
+    let response = await userAPI.getUsers(currentPage, pageSize)
         dispatch(onFetch())
         dispatch(setUsers(response.items))
-    })
 }
 
-export const follow = (id) => (dispatch) => {
+export const followUnfloowFlow = async (dispatch, id, apiMethid, actionCreator) => {
     dispatch(fetchingFollow(true, id))
-    userAPI.followUser(id)
-    .then((response)=>{
-        if(response.data.resultCode === 0) {
-            dispatch(onFollow(id))
-        }
-        dispatch(fetchingFollow(false, id))    
-        })
+    let response = await apiMethid(id)
+    if(response.data.resultCode === 0) {
+        dispatch(actionCreator(id))
+    }
+    dispatch(fetchingFollow(false, id))  
 }
 
-export const unfollow = (id) => (dispatch) => {
-    dispatch(fetchingFollow(true, id))
-    userAPI.unfollowUser(id)
-    .then((response)=>{
-        if(response.data.resultCode === 0) {
-            dispatch(onUnfollow(id))
-        }
-        dispatch(fetchingFollow(false, id))    
-        })
+export const follow = (id) => {
+    return async (dispatch) => {
+        followUnfloowFlow(dispatch, id, userAPI.followUser.bind(userAPI), onFollow)
+    }
+} 
+export const unfollow = (id) => async (dispatch) => {
+    followUnfloowFlow(dispatch, id, userAPI.unfollowUser.bind(userAPI), onUnfollow)  
 }
 
-export const authUser = () => (dispatch) => {
-    auth.me()
-        .then((response)=>{
-            let {id, login, email} = response.data.data;
-            if (response.data.resultCode === 0) {
-                dispatch(setAuth({id,login,email}))
-            } 
-        })
+export const authUser = () => async (dispatch) => {
+    let response = await auth.me();
+    let {id, login, email} = response.data.data;
+    if (response.data.resultCode === 0) {
+        dispatch(setAuth({id,login,email}))
+    }
+    return  response;
 }
 
-export const loginUser = (body) => (dispatch) => {
-    auth.login(body)
-        .then((response) => {
-            if (response.data.resultCode === 0) {
-                auth.me()
-                    .then((response)=>{
-                        let {id, login, email} = response.data.data;
-                        if (response.data.resultCode === 0) {
-                            dispatch(setAuth({id,login,email}))
-                        } 
-                    })
-            }
-        })
+export const loginUser = (body) => async (dispatch) => {
+    let response = await auth.login(body);
+    debugger
+    if (response.data.resultCode === 0) {
+        auth.me()
+            .then((response)=>{
+                let {id, login, email} = response.data.data;
+                if (response.data.resultCode === 0) {
+                    dispatch(setAuth({id,login,email}))
+                } 
+            })
+    } else {
+        dispatch(setError());
+    }
 }
 
-export const logoutUser = () => (dispatch) => {
-    auth.logout()
-        .then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(delAuth());
-            }
-        })
-        
+export const logoutUser = () => async (dispatch) => {
+    let response = await auth.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(delAuth());
+    }  
 }
 
-export const getProfile = (userId) => (dispatch) => {
-    if(!userId) {
-        userId = 18155
-      }
-      profileAPI.getProfile(userId)
-      .then(response => dispatch(setProfile(response.data)))
+export const getProfile = (userId) => async (dispatch) => {
+    let response = await profileAPI.getProfile(userId)
+    dispatch(setProfile(response.data))
 }
 
-export const getStatus = (userId) => (dispatch) => {
-    if(!userId) {
-        userId = 18155
-      }
-      profileAPI.getStatus(userId)
-      .then(response => {
-        debugger;
+export const getStatus = (userId) => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
         if (!response.data) {
             response.data = "Without status"
         }
-        dispatch(setStatus(response.data))})
+        dispatch(setStatus(response.data))
 }
-export const updateStatus = (status) => (dispatch) => {
-    debugger
-    profileAPI.updateStatus({status: status})
-    .then(response => {
+
+export const updateStatus = (status) => async (dispatch) => {
+    let response = await profileAPI.updateStatus({status: status})
         if (response.resultCode === 0 ) {
             dispatch(changeStatus(status))
         }
-    })
-    .catch(response => {
-        console.log(response)
-    })
+        throw console.log(response)
 }

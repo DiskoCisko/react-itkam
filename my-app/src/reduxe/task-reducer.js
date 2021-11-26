@@ -1,3 +1,5 @@
+import {objectPropAdd} from './../components/utils/object-prop-add'
+
 let initStatev = {
     users: [],
     pageSize: 5,
@@ -11,38 +13,15 @@ let initStatev = {
 export const taskReducer = (state = initStatev, action) => {
     switch (action.type) {
         case 'FOLLOW_USER': 
-            let newUsers = state.users.map(item => {
-                
-                if (action.payload == item.id) {
-                    
-                    return {
-                        ...item,
-                        followed: true
-
-                    } 
-                } else return {
-                    ...item
-                }
-            })
+            let newUsers = objectPropAdd(state.users, action.payload, 'id', {followed: true})
             let newState = {
                 ...state,
                 users: newUsers
             }
             return newState
         case 'UNFOLLOW_USER': 
-            {let newUsers = state.users.map(item => {
-                
-                if (action.payload == item.id) {
-                    
-                    return {
-                        ...item,
-                        followed: false
-
-                    } 
-                } else return {
-                    ...item
-                }
-            })
+            {
+                let newUsers = objectPropAdd(state.users, action.payload, 'id', {followed: false})
             let newState = {
                 ...state,
                 users: newUsers

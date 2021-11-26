@@ -8,18 +8,27 @@ import {
     follow,
     unfollow
 } from '../../reduxe/actions'
+import {
+    getUserSelector,
+    getPageSizeSelector,
+    getTotalCountSelector,
+    getCurrentPageSelector,
+    getIsFetchSelector,
+    getIsFetchFollowSelector,
+    getTogleFetcgFollowSelector
+} from './../../reduxe/selector';
 import { compose } from 'redux';
 
 
 const mapStateToProps = (state) => {
     return {
-        users: state.userPage.users,
-        pageSize: state.userPage.pageSize,
-        totalCount: state.userPage.totalCount,
-        currentPage: state.userPage.currentPage,
-        isFetch: state.userPage.isFetch,
-        isFetchFollow: state.userPage.isFetchFollow,
-        togleFetcgFollow: state.userPage.togleFetcgFollow
+        users: getUserSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalCount: getTotalCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetch: getIsFetchSelector(state),
+        isFetchFollow: getIsFetchFollowSelector(state),
+        togleFetcgFollow: getTogleFetcgFollowSelector(state)
     }
 }
 class UserCAPI extends React.Component {

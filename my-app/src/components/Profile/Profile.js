@@ -30,6 +30,9 @@ const Profile = (props) => {
       <Status
         status={props.status}
         updateStatus={props.updateStatus}
+        id={props.is}
+        userId={props.match.params.userId}
+
       />
       <p >{props.profile.lookingForAJob?'Ищу работу':'В работе'}</p>
       <p >{props.profile.lookingForAJobDescription}</p>
