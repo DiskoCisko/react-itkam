@@ -4,7 +4,6 @@ import Posts from './../Posts/Posts.js';
 import PostForm from './../Post_form/Post_form.js';
 import Status from './Status';
 const Profile = (props) => {
-  debugger;
   const contacts = []
   for(let prop in props.profile.contacts) {
     if(props.profile.contacts[prop]) {

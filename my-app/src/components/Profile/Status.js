@@ -33,7 +33,6 @@ const Status = (props) => {
             placeholder={status}
         />
     }
-    
 }
 
 export default Status;

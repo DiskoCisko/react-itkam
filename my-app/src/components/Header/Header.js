@@ -8,7 +8,6 @@ const Header = (props) => {
     return <header className={s.header}>
     <div className={s.container}>
       <div >
-        {/* <img className={s.logo} src="http://localhost:3000/logo192.png"/> */}
         <img className={s.logo} src={process.env.PUBLIC_URL + "/logo192.png"}/>
       </div>
       <ul className={s.navbar}>
