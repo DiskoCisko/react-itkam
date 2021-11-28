@@ -2,7 +2,7 @@ import {objectPropAdd} from './../components/utils/object-prop-add'
 
 let initStatev = {
     users: [],
-    pageSize: 5,
+    pageSize: 30,
     totalCount: 0,
     currentPage: 1,
     isFetch: false,
