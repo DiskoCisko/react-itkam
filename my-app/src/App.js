@@ -6,9 +6,6 @@ import HeaderCAPI from './components/Header/HeaderCAPI';
 import LeftMenu from './components/Left_menu/Left_menu';
 import { withSuspense } from './HOC/withSuspense';
 
-//import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DiologsContainer';
-import UserCAPI from './components/Users/UserCAPI';
 import {initializeApp} from './reduxe/app_reducer';
 import AuthContainer from './components/auth/AuthContainer';
 import {
@@ -21,6 +18,9 @@ import { Provider } from 'react-redux'
 import {store} from './reduxe/reduxe';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DiologsContainer'));
+const UserCAPI = React.lazy(() => import('./components/Users/UserCAPI'));
+
 class  App extends React.Component {
   componentDidMount = () => {
     this.props.initializeApp()
@@ -51,8 +51,7 @@ class  App extends React.Component {
           />
           <Route path="/login">
             <AuthContainer />
-          </Route>
-            
+          </Route> 
         </div>
       </main>
     </div>   
