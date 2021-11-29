@@ -5,7 +5,7 @@ import {
   screen,
   fireEvent
 } from '@testing-library/react';
-import {updateStatus} from './../../reduxe/actions';
+
 
 describe("Paginator component", () => {
   test('Paginator should be displayed with button "Next" button "Preview" should be hidden', () => {

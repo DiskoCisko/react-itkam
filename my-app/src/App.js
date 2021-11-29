@@ -1,14 +1,12 @@
 
-import React from 'react';
+import React, { Suspense }  from 'react';
 import { connect } from 'react-redux';
 
-import {
-  withRouter
-} from "react-router-dom";
-import { compose } from 'redux';
 import HeaderCAPI from './components/Header/HeaderCAPI';
 import LeftMenu from './components/Left_menu/Left_menu';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import { withSuspense } from './HOC/withSuspense';
+
+//import ProfileContainer from './components/Profile/ProfileContainer';
 import DialogsContainer from './components/Dialogs/DiologsContainer';
 import UserCAPI from './components/Users/UserCAPI';
 import {initializeApp} from './reduxe/app_reducer';
@@ -22,6 +20,7 @@ import Loader from './components/common/Loader';
 import { Provider } from 'react-redux'
 import {store} from './reduxe/reduxe';
 
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 class  App extends React.Component {
   componentDidMount = () => {
     this.props.initializeApp()
@@ -38,20 +37,21 @@ class  App extends React.Component {
       <main className="main">
         <LeftMenu />
         <div className="content">
-            
-            {/* <Profile /> */}
-            <Route path="/profile/:userId?">
-            <ProfileContainer />
-            </Route>
-            <Route path="/dialogs">
-              <DialogsContainer />
-            </Route>
-            <Route path="/users">
-              <UserCAPI />
-            </Route>
-            <Route path="/login">
-              <AuthContainer />
-            </Route>
+          <Route 
+            path="/profile/:userId?"
+            render={withSuspense(ProfileContainer)}
+          />
+          <Route 
+            path="/dialogs"
+            render={withSuspense(DialogsContainer)}
+          />
+          <Route 
+            path="/users"
+            render={withSuspense(UserCAPI)}
+          />
+          <Route path="/login">
+            <AuthContainer />
+          </Route>
             
         </div>
       </main>
