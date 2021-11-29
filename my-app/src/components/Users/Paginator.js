@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import s from './Users.module.css';
 
-const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage}) => {
+const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
     let pageCount = (Math.ceil(totalCount/(pageSize)));
     const [currentProtion, setCurrentPortion] = useState(Math.ceil(currentPage/(pageSize)));
     let pages = []
@@ -12,10 +12,11 @@ const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage}) => {
     }
     return <>
     {(portionCount > 1)&&<button onClick={()=>{setCurrentPortion(currentProtion - 1)}}>Preview</button>}
-    {pages.map(item => {
+    {pages.map((item, index) => {
         return <span 
             onClick={()=>{changePage(item)}}
-            className={currentPage == item&&s.active}
+            className={currentPage === item&&s.active}
+            key={index}
         >
             {item}
         </span>
