@@ -1,5 +1,5 @@
 
-import React, { Suspense }  from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 
 import HeaderCAPI from './components/Header/HeaderCAPI';
