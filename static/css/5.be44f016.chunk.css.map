@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Users/Users.module.css"],"names":[],"mappings":"AAAA,qBACI,eACJ,CACA,KACI,cAAe,CACf,cAAe,CACf,gBACJ","file":"5.be44f016.chunk.css","sourcesContent":[".active {\r\n    font-weight: bold;\r\n}\r\nspan {\r\n    cursor: pointer;\r\n    display: inline;\r\n    margin-right: 5px;\r\n}"]}
