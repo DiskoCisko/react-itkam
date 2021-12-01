@@ -3,6 +3,7 @@ import s from './Profile.module.css';
 import Posts from './../Posts/Posts.js';
 import PostForm from './../Post_form/Post_form.js';
 import Status from './Status';
+import Photo from './Photo';
 const Profile = (props) => {
   const contacts = []
   for(let prop in props.profile.contacts) {
@@ -23,7 +24,14 @@ const Profile = (props) => {
               <source src={process.env.PUBLIC_URL + "/video/v1.webm"} type='video/webm; codecs="vp8, vorbis"'/>
             </video>
     <div className={s.wrp}>
-    <img src={props.profile.photos.large} className={s.img}/>
+    <div className={s.wrpImg}>
+      <Photo 
+        photos = {props.profile.photos}
+        savePhoto = {props.savePhoto}
+        isOwner = {props.isOwner}
+      />
+    </div>
+    
     <div className={s.content}>
       <h2 >{props.profile.fullName}</h2>
       <Status

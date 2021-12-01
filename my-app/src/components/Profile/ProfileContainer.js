@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Profile from './Profile';
-import {onAddPost, getProfile, getStatus, updateStatus} from './../../reduxe/actions';
+import {onAddPost, getProfile, getStatus, updateStatus, savePhoto} from './../../reduxe/actions';
 import React from 'react';
 import Loader from '../common/Loader'
 import {
@@ -16,7 +16,7 @@ import {
 } from './../../reduxe/selector'
 
 class ProfileCAPI extends React.Component {
-  componentDidMount = () => {
+  refresheProfile() {
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.id
@@ -27,11 +27,21 @@ class ProfileCAPI extends React.Component {
     this.props.getProfile(userId)
     this.props.getStatus(userId)
   }
-  
+  componentDidMount = () => {
+    this.refresheProfile()
+  }
+  componentDidUpdate = (prevProps) => {
+    if(this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.refresheProfile()
+    }
+  }
   render() {
     if(!this.props.profile) {
       return <Loader/>
-    } else return <Profile {...this.props}/>
+    } else return <Profile 
+      {...this.props}
+      isOwner = {!this.props.match.params.userId}
+    />
   }
 }
 
@@ -49,7 +59,8 @@ export default compose(
     onAddPost,
     getProfile,
     getStatus,
-    updateStatus
+    updateStatus,
+    savePhoto
   } ),
   withRouter,
 )(ProfileCAPI)

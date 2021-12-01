@@ -38,9 +38,16 @@ export const profileAPI = {
         return instence.get(`profile/status/${userId}`)
     },
     updateStatus (body) {
-        debugger
         return instence.put(`profile/status`, body)
-    }
+    },
+    savePhoto (photo) {
+        const formData = new FormData();
+        formData.append("image", photo)
+        return instence.put(`profile/photo`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+    } )}
 }
 
 export const auth = {
@@ -51,7 +58,6 @@ export const auth = {
         return instence.delete(`auth/login`)
     },
     me () {
-        debugger;
         return instence.get('auth/me', {
             withCredentials: true
         })  

@@ -4,7 +4,12 @@
 }
 .img {
     width: 230px;
+    margin-bottom: 10px;
 }
 .content {
     margin-left: 20px;
+}
+.wrpImg {
+    display: flex;
+    flex-direction: column;
 }

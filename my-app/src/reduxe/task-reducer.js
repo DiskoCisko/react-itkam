@@ -41,7 +41,6 @@ export const taskReducer = (state = initStatev, action) => {
              ...state,
              totalCount: newTotalCount
          }
-         debugger
             return newState;  
         }
         case 'SET_USER':{

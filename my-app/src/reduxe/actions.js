@@ -1,5 +1,4 @@
 
-import { stopSubmit } from 'redux-form';
 import {userAPI, auth, profileAPI} from '../DAL/api';
 
 export const ADD_POST = 'ADD-POST';
@@ -15,6 +14,7 @@ export const CHANGE_STAUS = 'CHANGE_STAUS';
 export const SET_AUTH = 'SET_AUTH';
 export const DEL_AUTH = 'DEL_AUTH';
 export const SET_ERROR = 'SET_ERROR';
+export const CHANGE_PHOTO = 'CHANGE_PHOTO';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
 
@@ -102,6 +102,13 @@ export const fetchingFollow = (isFething, userId) => {
     }
 }
 
+export const changePhoto = (photo) => {
+    return {
+        type: CHANGE_PHOTO,
+        photo
+    }
+}
+
 export const getUser = (currentPage, pageSize) => async (dispatch) => {
     dispatch(onFetch())
     let response = await userAPI.getUsers(currentPage, pageSize)
@@ -147,7 +154,6 @@ export const authUser = () => async (dispatch) => {
 
 export const loginUser = (body) => async (dispatch) => {
     let response = await auth.login(body);
-    debugger
     if (response.data.resultCode === 0) {
         auth.me()
             .then((response)=>{
@@ -187,4 +193,13 @@ export const updateStatus = (status) => async (dispatch) => {
             dispatch(changeStatus(status))
         }
         throw console.log(response)
+}
+
+export const savePhoto = (file) => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+    
+        if (response.data.resultCode === 0 ) {
+            
+            dispatch(changePhoto(response.data.data.photos))
+        }
 }

@@ -1,13 +1,14 @@
 export const getPostsSelector = (state) => {
-    return state.profile.posts
+    return state.status.posts
 }
 
 export const getProfileSelector = (state) => {
-    return state.profile.profile
+
+    return state.profile
 }
 
 export const getStatusSelector = (state) => {
-    return state.profile.status
+    return state.status.status
 }
 
 export const getIdSelector = (state) => {

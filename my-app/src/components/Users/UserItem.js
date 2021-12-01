@@ -4,14 +4,12 @@ import {
   } from "react-router-dom";
   
 const UserItem = (props) => {
-    debugger
-    
     return <div key={props.id}>
     <h1>
         {props.name}
     </h1>
     <NavLink to={"/profile/"+props.id}>
-    <img src={props.photos.small?props.photos.small:'http://localhost:3000/p2.png'}/>
+    <img src={props.photos.small?props.photos.small:process.env.PUBLIC_URL + '/p2.png'}/>
     </NavLink>
     <p>
         {props.status}

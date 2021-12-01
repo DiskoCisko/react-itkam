@@ -10,6 +10,7 @@ import {initializeApp} from './reduxe/app_reducer';
 import AuthContainer from './components/auth/AuthContainer';
 import {
   BrowserRouter as Router,
+  HashRouter,
   Route
 } from "react-router-dom";
 import './App.css';
@@ -69,9 +70,11 @@ const mapStateToProps = (state) => {
 const AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 const MainApp = (props) => {
-  return <Provider store={store}>
+  return <HashRouter>
+  <Provider store={store}>
   <AppContainer />
 </Provider>
+</HashRouter>
 }
 
 export default MainApp;
