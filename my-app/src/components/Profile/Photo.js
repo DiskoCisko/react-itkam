@@ -13,7 +13,7 @@ const Photo = (props) => {
         setPhotos(props.photos)
     }, [props.photos])
     return <>
-        <img className={s.img} src={(photos)?photos.large:process.env.PUBLIC_URL + '/p2.png'} />
+        <img className={s.img} src={(photos.large)?photos.large:process.env.PUBLIC_URL + '/p2.png'} />
         {props.isOwner && (<input type="file" onChange={refreshePhoto}/>)}
     </>
 }
