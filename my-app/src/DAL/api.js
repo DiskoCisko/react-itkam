@@ -47,7 +47,10 @@ export const profileAPI = {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
-    } )}
+    } )},
+    saveProfile (body) {
+        return instence.put(`profile`, body)
+    }
 }
 
 export const auth = {

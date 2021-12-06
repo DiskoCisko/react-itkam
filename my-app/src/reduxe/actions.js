@@ -16,7 +16,8 @@ export const DEL_AUTH = 'DEL_AUTH';
 export const SET_ERROR = 'SET_ERROR';
 export const CHANGE_PHOTO = 'CHANGE_PHOTO';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
-
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+export const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE'
 
 export const onAddPost = (body) => {
     return {
@@ -94,6 +95,12 @@ export const setError = () => {
         type: SET_ERROR,
     }
 }
+export const setErrorMessage = (message) => {
+    return {
+        type: SET_ERROR_MESSAGE,
+        message: message
+    }
+}
 export const fetchingFollow = (isFething, userId) => {
     return {
         type: TOGLE_FECHING_FOLLOW,
@@ -106,6 +113,14 @@ export const changePhoto = (photo) => {
     return {
         type: CHANGE_PHOTO,
         photo
+    }
+}
+
+export const toggleEditeProfileMode = (bool) => {
+    debugger
+    return {
+        type: TOGGLE_EDITEMODE_PROFILE,
+        editeMode: bool
     }
 }
 
@@ -160,11 +175,21 @@ export const loginUser = (body) => async (dispatch) => {
                 let {id, login, email} = response.data.data;
                 if (response.data.resultCode === 0) {
                     dispatch(setAuth({id,login,email}))
-                } 
+                } else dispatch(setError())
             })
     } else {
         dispatch(setError());
     }
+}
+
+export const saveProfile = (body) => async (dispatch) => {
+    let response = await profileAPI.saveProfile(body)
+    debugger
+    if (response.data.resultCode === 0) {
+    response = await profileAPI.getProfile(body.userId)
+    dispatch(setProfile(response.data))
+    toggleEditeProfileMode(false)
+    } else dispatch(setErrorMessage(response.data.messages[0]))
 }
 
 export const logoutUser = () => async (dispatch) => {
@@ -175,6 +200,7 @@ export const logoutUser = () => async (dispatch) => {
 }
 
 export const getProfile = (userId) => async (dispatch) => {
+    
     let response = await profileAPI.getProfile(userId)
     dispatch(setProfile(response.data))
 }
