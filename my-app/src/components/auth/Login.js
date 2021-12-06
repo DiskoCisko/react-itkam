@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { WithFormReduxe } from './AuthContainer'
 
-const Login = ({login, error, loginUser}) => {
+const Login = ({login, error, loginUser, captcha}) => {
     if(login) {
         return <Redirect to="/profile" />
     }
@@ -12,7 +12,7 @@ const Login = ({login, error, loginUser}) => {
     return <>
         
         <h1>Login</h1>
-        <WithFormReduxe errors={error} loginUser={loginUser}/>
+        <WithFormReduxe errors={error} loginUser={loginUser} captcha={captcha}/>
     </>
 }
 

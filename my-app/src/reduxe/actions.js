@@ -18,6 +18,7 @@ export const CHANGE_PHOTO = 'CHANGE_PHOTO';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE'
+export const GET_CAPTCHA_SUCCESSE = 'GET_CAPTCHA_SUCCESSE'
 
 export const onAddPost = (body) => {
     return {
@@ -124,6 +125,13 @@ export const toggleEditeProfileMode = (bool) => {
     }
 }
 
+export const getCaptchaSuccesse = (url) => {
+    return {
+        type: GET_CAPTCHA_SUCCESSE,
+        url: url
+    }
+}
+
 export const getUser = (currentPage, pageSize) => async (dispatch) => {
     dispatch(onFetch())
     let response = await userAPI.getUsers(currentPage, pageSize)
@@ -178,8 +186,15 @@ export const loginUser = (body) => async (dispatch) => {
                 } else dispatch(setError())
             })
     } else {
-        dispatch(setError());
+        if(response.data.resultCode === 10) {
+            dispatch(getCaptcha());
+    } else dispatch(setError());
     }
+}
+
+export const getCaptcha = () => async (dispatch) => {
+    let response = await auth.getCaptcha(); 
+    dispatch(getCaptchaSuccesse(response.data.url));
 }
 
 export const saveProfile = (body) => async (dispatch) => {

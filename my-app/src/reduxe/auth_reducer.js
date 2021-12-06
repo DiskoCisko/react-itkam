@@ -3,7 +3,8 @@ let inintState = {
     login: undefined,
     userId: null,
     isAuth: false,
-    error: null
+    error: null,
+    captcha: null
 }
 
 export const authReducer = (state = inintState, action) => {
@@ -23,6 +24,13 @@ export const authReducer = (state = inintState, action) => {
         case 'SET_ERROR': {
             return {
                 error: true
+            }
+        }
+        case 'GET_CAPTCHA_SUCCESSE': {
+            debugger
+            return {
+                ...state,
+                captcha: action.url
             }
         }
         default:

@@ -4,7 +4,7 @@ import {Textarea} from './Textarea';
 import {requiredFilled, minSymbols6, maxSymbols20} from "./../../utils/validation";
 import s from './FormContainer.module.css'
 
-export const FormContainer = ({loginUser, reset, handleSubmit, errors}) => {
+export const FormContainer = ({loginUser, reset, handleSubmit, errors, captcha}) => {
    const  submit = (values) => {
     loginUser(values);
     reset();
@@ -15,6 +15,8 @@ export const FormContainer = ({loginUser, reset, handleSubmit, errors}) => {
         {errors&&<div className={s.summaryError}>
             Uncorret Password or Email
         </div>}
+        {captcha && <img src={captcha}/>}
+        {captcha && createdField("captcha", Input, [requiredFilled], {type: "text", lable: "Captcha"})}
         <button className={s.btn}>Submit</button>
     </form>
 }

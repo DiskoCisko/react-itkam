@@ -64,6 +64,9 @@ export const auth = {
         return instence.get('auth/me', {
             withCredentials: true
         })  
+    },
+    getCaptcha() {
+        return instence.get('security/get-captcha-url')
     }
     
 }
