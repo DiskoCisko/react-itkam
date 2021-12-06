@@ -4,16 +4,8 @@ import Posts from './../Posts/Posts.js';
 import PostForm from './../Post_form/Post_form.js';
 import Status from './Status';
 import Photo from './Photo';
+import ProfileData from './ProfileData';
 const Profile = (props) => {
-  const contacts = []
-  for(let prop in props.profile.contacts) {
-    if(props.profile.contacts[prop]) {
-      contacts.push(<p>{prop}: <a href={props.profile.contacts[prop]}>{props.profile.contacts[prop]}</a></p>) 
-    }
-  }
-  let contact = contacts.map(item => {
-    return item
-  })
   let post = props.posts.map((item, index) => {
     return <Posts key={index} text={item.text} photo={props.profile.photos.small}/>
   })
@@ -39,11 +31,15 @@ const Profile = (props) => {
         updateStatus={props.updateStatus}
         id={props.is}
         userId={props.match.params.userId}
-
       />
-      <p >{props.profile.lookingForAJob?'Ищу работу':'В работе'}</p>
-      <p >{props.profile.lookingForAJobDescription}</p>
-      <p >{contact}</p>
+      <ProfileData
+        isOwner = {props.isOwner} 
+        contacts = {props.profile.contacts}
+        lookingForAJob = {props.profile.lookingForAJob}
+        lookingForAJobDescription = {props.profile.lookingForAJobDescription}
+        editeMode = {props.profile.editeMode}
+        toggleEditeProfileMode= {props.toggleEditeProfileMode}
+    />   
     </div>
 </div>
 <PostForm 

@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Profile from './Profile';
-import {onAddPost, getProfile, getStatus, updateStatus, savePhoto} from './../../reduxe/actions';
+import {onAddPost, getProfile, getStatus, updateStatus, savePhoto, toggleEditeProfileMode} from './../../reduxe/actions';
 import React from 'react';
 import Loader from '../common/Loader'
 import {
@@ -60,7 +60,8 @@ export default compose(
     getProfile,
     getStatus,
     updateStatus,
-    savePhoto
+    savePhoto,
+    toggleEditeProfileMode
   } ),
   withRouter,
 )(ProfileCAPI)
