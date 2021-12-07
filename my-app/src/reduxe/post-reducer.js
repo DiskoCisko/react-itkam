@@ -19,7 +19,7 @@ export const onAddPost = (body) => {
 
 export const postReducer = (state = inintState, action) => {
     switch (action.type) {
-        case ADD_POST: {
+        case 'ADD-POST': {
             let newState = {
                 ...state,
                 formValue: '',

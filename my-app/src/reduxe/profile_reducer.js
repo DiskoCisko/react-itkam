@@ -63,25 +63,25 @@ export const savePhoto = (file) => async (dispatch) => {
 
 export const profileReducer = (state = inintState, action) => {
     switch (action.type) {
-        case SET_PROFILE: {
+        case 'SET_PROFILE': {
             return {
                 ...action.payload
             }
         }
-        case CHANGE_PHOTO: {
+        case 'CHANGE_PHOTO': {
             let newState = {
                 ...state,
                 photos: action.photo
             }
             return newState
         }
-        case SET_ERROR_MESSAGE: {
+        case 'SET_ERROR_MESSAGE': {
             return {
                 ...state,
                 errMessage: action.message
             }
         }
-        case TOGGLE_EDITEMODE_PROFILE: {
+        case 'TOGGLE_EDITEMODE_PROFILE': {
             return {
                 ...state,
                 editeMode: action.editeMode
