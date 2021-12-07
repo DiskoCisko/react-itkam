@@ -1,4 +1,4 @@
-import {authUser} from './actions';
+import {authUser} from './auth_reducer';
 let inintState = {
     initialized: false
 }

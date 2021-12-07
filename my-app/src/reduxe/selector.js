@@ -1,5 +1,5 @@
 export const getPostsSelector = (state) => {
-    return state.status.posts
+    return state.post.posts
 }
 
 export const getProfileSelector = (state) => {

@@ -1,7 +1,9 @@
 
 import { connect } from 'react-redux'
 import Profile from './Profile';
-import {onAddPost, getProfile, getStatus, updateStatus, savePhoto, toggleEditeProfileMode} from './../../reduxe/actions';
+import {getStatus, updateStatus} from './../../reduxe/status_Reducer';
+import {onAddPost} from './../../reduxe/post-reducer';
+import {getProfile, savePhoto, toggleEditeProfileMode} from './../../reduxe/profile_reducer';
 import React from 'react';
 import Loader from '../common/Loader'
 import {

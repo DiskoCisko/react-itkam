@@ -3,7 +3,7 @@ import { reduxForm } from 'redux-form';
 import {FormContainerProfile} from './../common/FormControll/FormController';
 import { connect } from 'react-redux';
 import {getProfileSelector, getIdSelector} from './../../reduxe/selector';
-import {saveProfile} from './../../reduxe/actions';
+import {saveProfile} from './../../reduxe/profile_reducer';
 
 export const WithFormReduxe =  reduxForm({
     form: 'loginForm',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {logoutUser} from './../../reduxe/actions';
+import {logoutUser} from './../../reduxe/auth_reducer';
 import Header from './Header';
 import { getLoginSelector } from './../../reduxe/selector';
 

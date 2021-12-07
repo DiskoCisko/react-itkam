@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import {profileReducer} from './profile_reducer';
 import {statusReducer} from './status_Reducer';
+import {postReducer} from './post-reducer';
 import {messagasReducer} from './messages_reducer';
 import {userReducer} from './user-reducer';
 import { authReducer } from './auth_reducer';
@@ -12,6 +13,7 @@ import { compose } from 'redux';
 export const reducers = combineReducers({
     profile: profileReducer,
     status: statusReducer,
+    post: postReducer,
     dialogs: messagasReducer,
     userPage: userReducer,
     auth: authReducer,

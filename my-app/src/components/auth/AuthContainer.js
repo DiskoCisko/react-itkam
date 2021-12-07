@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Login from './Login';
-import {loginUser} from '../../reduxe/actions';
+import {loginUser} from '../../reduxe/auth_reducer';
 import {FormContainer} from './../common/FormControll/FormController'
 
 

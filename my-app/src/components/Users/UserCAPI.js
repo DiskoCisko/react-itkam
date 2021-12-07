@@ -7,7 +7,7 @@ import {
     changeUserPage,
     follow,
     unfollow
-} from '../../reduxe/actions'
+} from '../../reduxe/user-reducer'
 import {
     getUserSelector,
     getPageSizeSelector,
