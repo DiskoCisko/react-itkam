@@ -4,7 +4,7 @@ import {Textarea} from './Textarea';
 import {requiredFilled, minSymbols6, maxSymbols20} from "./../../utils/validation";
 import s from './FormContainer.module.css'
 
-export const FormContainer = ({loginUser, reset, handleSubmit, errors}) => {
+export const FormContainer = ({loginUser, reset, handleSubmit, errors, captcha}) => {
    const  submit = (values) => {
     loginUser(values);
     reset();
@@ -12,8 +12,10 @@ export const FormContainer = ({loginUser, reset, handleSubmit, errors}) => {
     return <form onSubmit={handleSubmit(submit)}>
         {createdField("email", Input, [requiredFilled, maxSymbols20], {type: "email", lable: "Email"} )}
         {createdField("password", Input, [requiredFilled, minSymbols6], {type: "password", lable: "Password"} )}
+        {captcha && <img src={captcha}/>}
+        {captcha && createdField("captcha", Input, [requiredFilled], {type: "text", lable: "Captcha"})}
         {errors&&<div className={s.summaryError}>
-            Uncorret Password or Email
+        {errors}
         </div>}
         <button className={s.btn}>Submit</button>
     </form>
@@ -25,7 +27,6 @@ export const FormContainerProfile = ({ handleSubmit, saveProfile, userId, deacti
             ...values,
             userId: userId
         }).then(()=> {
-            //deactiveEditeMode()
         })
         
         

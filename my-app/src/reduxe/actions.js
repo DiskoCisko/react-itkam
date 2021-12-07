@@ -18,6 +18,7 @@ export const CHANGE_PHOTO = 'CHANGE_PHOTO';
 export const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE'
+export const GET_CAPTCHA_SUCCESSE = 'GET_CAPTCHA_SUCCESSE'
 
 export const onAddPost = (body) => {
     return {
@@ -90,9 +91,10 @@ export const delAuth = () => {
         type: DEL_AUTH,
     }
 }
-export const setError = () => {
+export const setError = (message) => {
     return {
         type: SET_ERROR,
+        message: message
     }
 }
 export const setErrorMessage = (message) => {
@@ -117,10 +119,16 @@ export const changePhoto = (photo) => {
 }
 
 export const toggleEditeProfileMode = (bool) => {
-    debugger
     return {
         type: TOGGLE_EDITEMODE_PROFILE,
         editeMode: bool
+    }
+}
+
+export const getCaptchaSuccesse = (url) => {
+    return {
+        type: GET_CAPTCHA_SUCCESSE,
+        url: url
     }
 }
 
@@ -175,16 +183,25 @@ export const loginUser = (body) => async (dispatch) => {
                 let {id, login, email} = response.data.data;
                 if (response.data.resultCode === 0) {
                     dispatch(setAuth({id,login,email}))
-                } else dispatch(setError())
+                } else dispatch(setError(response.data.messages[0]))
             })
     } else {
-        dispatch(setError());
+        if(response.data.resultCode === 10) {
+            dispatch(getCaptcha());
+            dispatch(setError(response.data.messages[0]))
+    } else {
+        dispatch(setError(response.data.messages[0]))
+    };
     }
+}
+
+export const getCaptcha = () => async (dispatch) => {
+    let response = await auth.getCaptcha(); 
+    dispatch(getCaptchaSuccesse(response.data.url));
 }
 
 export const saveProfile = (body) => async (dispatch) => {
     let response = await profileAPI.saveProfile(body)
-    debugger
     if (response.data.resultCode === 0) {
     response = await profileAPI.getProfile(body.userId)
     dispatch(setProfile(response.data))
