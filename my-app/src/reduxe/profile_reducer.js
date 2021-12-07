@@ -6,7 +6,7 @@ let inintState = {
 
     }
 
-export const postReducer = (state = inintState, action) => {
+export const profileReducer = (state = inintState, action) => {
     switch (action.type) {
         case 'SET_PROFILE': {
             return {

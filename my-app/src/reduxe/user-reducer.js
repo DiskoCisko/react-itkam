@@ -1,4 +1,4 @@
-import {objectPropAdd} from './../components/utils/object-prop-add'
+import {objectPropAdd} from '../components/utils/object-prop-add'
 
 let initStatev = {
     users: [],
@@ -10,7 +10,7 @@ let initStatev = {
     togleFetcgFollow: []
 }
 
-export const taskReducer = (state = initStatev, action) => {
+export const userReducer = (state = initStatev, action) => {
     switch (action.type) {
         case 'FOLLOW_USER': 
             let newUsers = objectPropAdd(state.users, action.payload, 'id', {followed: true})

@@ -1,8 +1,8 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import {postReducer} from './addPost_reducer';
+import {profileReducer} from './profile_reducer';
 import {statusReducer} from './status_Reducer';
 import {messagasReducer} from './messages_reducer';
-import {taskReducer} from './task-reducer';
+import {userReducer} from './user-reducer';
 import { authReducer } from './auth_reducer';
 import { appReducer } from './app_reducer';
 import ReduxThunk from 'redux-thunk';
@@ -10,10 +10,10 @@ import { reducer as formReducer } from 'redux-form';
 import { compose } from 'redux';
 
 export const reducers = combineReducers({
-    profile: postReducer,
+    profile: profileReducer,
     status: statusReducer,
     dialogs: messagasReducer,
-    userPage: taskReducer,
+    userPage: userReducer,
     auth: authReducer,
     app: appReducer,
     form: formReducer
