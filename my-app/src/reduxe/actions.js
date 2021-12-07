@@ -119,7 +119,6 @@ export const changePhoto = (photo) => {
 }
 
 export const toggleEditeProfileMode = (bool) => {
-    debugger
     return {
         type: TOGGLE_EDITEMODE_PROFILE,
         editeMode: bool
@@ -203,7 +202,6 @@ export const getCaptcha = () => async (dispatch) => {
 
 export const saveProfile = (body) => async (dispatch) => {
     let response = await profileAPI.saveProfile(body)
-    debugger
     if (response.data.resultCode === 0) {
     response = await profileAPI.getProfile(body.userId)
     dispatch(setProfile(response.data))

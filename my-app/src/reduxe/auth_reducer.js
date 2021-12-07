@@ -22,7 +22,6 @@ export const authReducer = (state = inintState, action) => {
             }
         }
         case 'SET_ERROR': {
-            debugger
             return {
                 error: action.message
             }
