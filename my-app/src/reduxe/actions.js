@@ -91,9 +91,10 @@ export const delAuth = () => {
         type: DEL_AUTH,
     }
 }
-export const setError = () => {
+export const setError = (message) => {
     return {
         type: SET_ERROR,
+        message: message
     }
 }
 export const setErrorMessage = (message) => {
@@ -183,12 +184,15 @@ export const loginUser = (body) => async (dispatch) => {
                 let {id, login, email} = response.data.data;
                 if (response.data.resultCode === 0) {
                     dispatch(setAuth({id,login,email}))
-                } else dispatch(setError())
+                } else dispatch(setError(response.data.messages[0]))
             })
     } else {
         if(response.data.resultCode === 10) {
             dispatch(getCaptcha());
-    } else dispatch(setError());
+            dispatch(setError(response.data.messages[0]))
+    } else {
+        dispatch(setError(response.data.messages[0]))
+    };
     }
 }
 

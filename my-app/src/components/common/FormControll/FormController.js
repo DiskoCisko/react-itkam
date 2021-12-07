@@ -12,11 +12,11 @@ export const FormContainer = ({loginUser, reset, handleSubmit, errors, captcha})
     return <form onSubmit={handleSubmit(submit)}>
         {createdField("email", Input, [requiredFilled, maxSymbols20], {type: "email", lable: "Email"} )}
         {createdField("password", Input, [requiredFilled, minSymbols6], {type: "password", lable: "Password"} )}
-        {errors&&<div className={s.summaryError}>
-            Uncorret Password or Email
-        </div>}
         {captcha && <img src={captcha}/>}
         {captcha && createdField("captcha", Input, [requiredFilled], {type: "text", lable: "Captcha"})}
+        {errors&&<div className={s.summaryError}>
+        {errors}
+        </div>}
         <button className={s.btn}>Submit</button>
     </form>
 }
@@ -27,7 +27,6 @@ export const FormContainerProfile = ({ handleSubmit, saveProfile, userId, deacti
             ...values,
             userId: userId
         }).then(()=> {
-            //deactiveEditeMode()
         })
         
         

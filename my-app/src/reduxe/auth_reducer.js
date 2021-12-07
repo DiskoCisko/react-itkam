@@ -22,12 +22,12 @@ export const authReducer = (state = inintState, action) => {
             }
         }
         case 'SET_ERROR': {
+            debugger
             return {
-                error: true
+                error: action.message
             }
         }
         case 'GET_CAPTCHA_SUCCESSE': {
-            debugger
             return {
                 ...state,
                 captcha: action.url
