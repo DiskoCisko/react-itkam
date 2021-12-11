@@ -11,7 +11,6 @@ import {
 
 const LeftMenu = ({users, getUser}) => {
   useEffect(()=>{
-    debugger
     getUser()
   }, [])
   const userItem = users.map((item) => {

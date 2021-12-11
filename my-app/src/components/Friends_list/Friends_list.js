@@ -4,7 +4,6 @@ import {
 } from "react-router-dom";
 import s from './FriendList.module.css'
 const FiendsList = ({name, img, id}) => {
-    debugger
     return <div key={id}>
       <NavLink to={"/profile/"+id}>
       <div className={s.friendCard}>
