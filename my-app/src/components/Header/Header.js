@@ -11,9 +11,9 @@ const Header = (props) => {
         <img className={s.logo} src={process.env.PUBLIC_URL + "/logo192.png"}/>
       </div>
       <ul className={s.navbar}>
-        <NavLink to="/dialogs" className={`${s.item} ${s.active}`}>
+        {/* <NavLink to="/dialogs" className={`${s.item} ${s.active}`}>
           dialogs
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/profile" className={s.item}>
           profile
         </NavLink>

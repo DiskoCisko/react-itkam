@@ -2,7 +2,6 @@
 import { connect } from 'react-redux'
 import Profile from './Profile';
 import {getStatus, updateStatus} from './../../reduxe/status_Reducer';
-import {onAddPost} from './../../reduxe/post-reducer';
 import {getProfile, savePhoto, toggleEditeProfileMode} from './../../reduxe/profile_reducer';
 import React from 'react';
 import Loader from '../common/Loader'
@@ -11,7 +10,6 @@ import {
 } from "react-router-dom";
 import { compose } from 'redux';
 import {
-  getPostsSelector,
   getProfileSelector,
   getStatusSelector,
   getIdSelector
@@ -49,7 +47,6 @@ class ProfileCAPI extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    posts: getPostsSelector(state),
     profile: getProfileSelector(state),
     status: getStatusSelector(state),
     id: getIdSelector(state)
@@ -58,7 +55,6 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps, {
-    onAddPost,
     getProfile,
     getStatus,
     updateStatus,

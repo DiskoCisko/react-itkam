@@ -1,7 +1,3 @@
-export const getPostsSelector = (state) => {
-    return state.post.posts
-}
-
 export const getProfileSelector = (state) => {
 
     return state.profile

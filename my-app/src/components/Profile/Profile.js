@@ -1,14 +1,9 @@
 import React from 'react';
 import s from './Profile.module.css';
-import Posts from './../Posts/Posts.js';
-import PostForm from './../Post_form/Post_form.js';
 import Status from './Status';
 import Photo from './Photo';
 import ProfileData from './ProfileData';
 const Profile = (props) => {
-  let post = props.posts.map((item, index) => {
-    return <Posts key={index} text={item.text} photo={props.profile.photos.small}/>
-  })
     return <>
     <video loop muted autoPlay className="video-wrp">
               <source src={process.env.PUBLIC_URL + "/video/v1.ogv"} type='video/ogg; codecs="theora, vorbis"'/>
@@ -42,10 +37,6 @@ const Profile = (props) => {
     />   
     </div>
 </div>
-<PostForm 
-  onAddPost={props.onAddPost}
-  />
-  {post}
 </>
 }
 
