@@ -1,21 +1,16 @@
 import React from 'react';
+import {
+  NavLink
+} from "react-router-dom";
 import s from './FriendList.module.css'
-const FiendsList = () => {
-    
-    return <div >
-      <h3 className={s.title}>Friends</h3>
+const FiendsList = ({name, img, id}) => {
+    return <div key={id}>
+      <NavLink to={"/profile/"+id}>
       <div className={s.friendCard}>
-        <img src={process.env.PUBLIC_URL + "/p2.png"} className={s.friendImg}/>
-        <p className={s.friendText}>Name</p>
+        <img src={img?img:process.env.PUBLIC_URL + "/p2.png"} className={s.friendImg}/>
+        <p className={s.friendText}>{name}</p>
       </div>
-      <div className={s.friendCard}>
-        <img src={process.env.PUBLIC_URL + "/p2.png"} className={s.friendImg}/>
-        <p className={s.friendText}>Name</p>
-      </div>
-      <div className={s.friendCard}>
-        <img src={process.env.PUBLIC_URL + "/p2.png"} className={s.friendImg}/>
-        <p className={s.friendText}>Name</p>
-      </div>
+      </NavLink>
     </div>
 }
 
