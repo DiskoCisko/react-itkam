@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Profile.module.css';
+import common from './../common/CommonStyles.module.css';
 import {useState, useEffect} from 'react';
 
 const Photo = (props) => {
@@ -14,7 +15,15 @@ const Photo = (props) => {
     }, [props.photos])
     return <>
         <img className={s.img} src={(photos.large)?photos.large:process.env.PUBLIC_URL + '/p2.png'} />
-        {props.isOwner && (<input type="file" onChange={refreshePhoto}/>)}
+        {props.isOwner && (<div className={`${common.btn}` + " " + `${s.btn}`}>
+          <input className={s.inputFile} type="file" id="input__file" onChange={refreshePhoto}/>
+          <label for="input__file">
+            <span >Выберите файл</span>
+          </label>
+        </div>
+          
+          
+        )}
     </>
 }
 

@@ -4,7 +4,7 @@ body {
 /* Content */
 .main {
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 15% 85%;
     margin-top: 20px;
 }
 .content {

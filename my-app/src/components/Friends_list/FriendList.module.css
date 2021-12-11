@@ -18,6 +18,11 @@
     font-size: 24px;
     line-height: 34px;
 }
+a {
+    text-decoration: none;
+}
 .friendText {
     margin: 0;
+    text-decoration: none;
+    color: #373F41;
 }

@@ -6,3 +6,19 @@ span {
     display: inline;
     margin-right: 5px;
 }
+.btn {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.wrpUsers {
+    display: flex;
+    flex-wrap: wrap;
+}
+.itemWrap {
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 300px;
+}
+.img{
+    width: 100%;
+}

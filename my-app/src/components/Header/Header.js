@@ -1,5 +1,6 @@
 import React from 'react';
-import s from './Header.module.css'
+import s from './Header.module.css';
+import common from './../common/CommonStyles.module.css'
 import {
   NavLink
 } from "react-router-dom";
@@ -21,10 +22,10 @@ const Header = (props) => {
           users
         </NavLink>
       </ul>
-      {props.login?props.login:<button className={s.btn}><NavLink to="/login">
+      {props.login?props.login:<button className={common.btn}><NavLink to="/login">
           Login
         </NavLink></button>}
-        {props.login?<button className={s.btn} onClick={props.logoutUser}>
+        {props.login?<button className={common.btn} onClick={props.logoutUser}>
           Logout
         </button>:<></>}
     </div>
