@@ -1,13 +1,12 @@
 .btn {
     padding: 12px 18px;
     color: #FFFFFF;
-    width: 91px;
-    height: 42px;
     background: #3C64B1;
     border: none;
     outline: none;
     cursor: pointer;
     margin-top: 10px;
+    text-align: center;
 }
 .btn:hover {
     transition: 0.2s;

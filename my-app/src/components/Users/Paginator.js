@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import s from './Users.module.css';
+import common from './../common/CommonStyles.module.css'
 
 const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
     let pageCount = (Math.ceil(totalCount/(pageSize)));
@@ -10,8 +11,8 @@ const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
     for (let i = portionCount; i <= pageView; i++) {
         pages.push(i)
     }
-    return <>
-    {(portionCount > 1)&&<button onClick={()=>{setCurrentPortion(currentProtion - 1)}}>Preview</button>}
+    return <div className={s.paginatorWrp}>
+    {(portionCount > 1)&&<button className={`${common.btn}` +" "+ `${s.btn}`} onClick={()=>{setCurrentPortion(currentProtion - 1)}}>Preview</button>}
     {pages.map((item, index) => {
         return <span 
             onClick={()=>{changePage(item)}}
@@ -21,8 +22,8 @@ const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
             {item}
         </span>
     })}
-    {(portionCount < (pageCount - pageSize))&&<button onClick={()=>{setCurrentPortion(currentProtion + 1)}}>Next</button>}
- </>
+    {(portionCount < (pageCount - pageSize))&&<button className={`${common.btn}` +" "+ `${s.btn}`} onClick={()=>{setCurrentPortion(currentProtion + 1)}}>Next</button>}
+ </div>
 }
 
 export default Pagintor;

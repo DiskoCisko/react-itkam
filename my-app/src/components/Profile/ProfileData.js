@@ -1,5 +1,6 @@
 import React from "react";
 import ProfileDataForm from './ProfileDataForm';
+import s from './../common/CommonStyles.module.css'
 
 const ProfileData = (props) => {
 
@@ -23,7 +24,7 @@ const activeEditeMode = () => {
         <p >{props.lookingForAJob?'Ищу работу':'В работе'}</p>
         <p >{props.lookingForAJobDescription}</p>
         <p >{contact}</p>
-        {props.isOwner && (<button onClick={activeEditeMode}>Править</button>)}
+        {props.isOwner && (<button className={s.btn} onClick={activeEditeMode}>Править</button>)}
       </>
       }
       

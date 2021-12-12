@@ -34,18 +34,23 @@
 .active {
     color: #3C64B1;
 }
-.btn {
-    padding: 12px 18px;
-    color: #FFFFFF;
-    width: 91px;
-    height: 42px;
-    background: #3C64B1;
-    margin: 0px 20px;
-    border: none;
-    outline: none;
-    cursor: pointer;
+@media(max-width: 1200px) {
+    .container{
+        margin-right: 5%;
+        margin-left: 5%;
+        width: auto;
+    }  
 }
-.btn:hover {
-    transition: 0.3s;
-    background: #f1de70;
+@media(max-width: 860px) {
+    .container{
+        grid-template-columns: 10% 50% 20% 20%;
+    }  
+}
+@media(max-width: 425px) {
+    .logo {
+        display: none;
+    }
+    .container{
+        grid-template-columns: 100%;
+    }  
 }

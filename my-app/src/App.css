@@ -4,16 +4,15 @@ body {
 /* Content */
 .main {
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 15% 85%;
     margin-top: 20px;
 }
 .content {
     padding-left: 20px;
 }
-.video-wrp {
-  width: 100%;
-  height: 224px;
-  object-fit: cover;
+@media(max-width: 835px) {
+    .main {
+        grid-template-columns: 90%;
+    }
 }
-
 
