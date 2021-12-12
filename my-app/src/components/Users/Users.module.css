@@ -9,6 +9,7 @@ span {
 .btn {
     margin-right: 10px;
     margin-left: 10px;
+    display: block;
 }
 .wrpUsers {
     display: flex;
@@ -21,4 +22,9 @@ span {
 }
 .img{
     width: 100%;
+}
+.paginatorWrp {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }

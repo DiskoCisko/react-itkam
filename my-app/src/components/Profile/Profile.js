@@ -5,7 +5,7 @@ import Photo from './Photo';
 import ProfileData from './ProfileData';
 const Profile = (props) => {
     return <>
-    <video loop muted autoPlay className="video-wrp">
+    <video loop muted autoPlay className={s.videoWrp}>
               <source src={process.env.PUBLIC_URL + "/video/v1.ogv"} type='video/ogg; codecs="theora, vorbis"'/>
               <source src={process.env.PUBLIC_URL + "/video/v1.mp4"} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
               <source src={process.env.PUBLIC_URL + "/video/v1.webm"} type='video/webm; codecs="vp8, vorbis"'/>

@@ -34,3 +34,23 @@
 .active {
     color: #3C64B1;
 }
+@media(max-width: 1200px) {
+    .container{
+        margin-right: 5%;
+        margin-left: 5%;
+        width: auto;
+    }  
+}
+@media(max-width: 860px) {
+    .container{
+        grid-template-columns: 10% 50% 20% 20%;
+    }  
+}
+@media(max-width: 425px) {
+    .logo {
+        display: none;
+    }
+    .container{
+        grid-template-columns: 100%;
+    }  
+}

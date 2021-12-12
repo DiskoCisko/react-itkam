@@ -24,3 +24,19 @@
     height: auto;
     text-align: center;
 }
+.videoWrp {
+    width: 100%;
+    height: 224px;
+    object-fit: cover;
+}
+@media(max-width: 500px) {
+    .videoWrp {
+        display: none;
+    }
+}
+@media (max-width: 460px) {
+    .wrp {
+        flex-direction: column;
+        align-items: center;
+    }
+}

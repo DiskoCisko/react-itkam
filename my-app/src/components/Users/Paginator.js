@@ -11,7 +11,7 @@ const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
     for (let i = portionCount; i <= pageView; i++) {
         pages.push(i)
     }
-    return <>
+    return <div className={s.paginatorWrp}>
     {(portionCount > 1)&&<button className={`${common.btn}` +" "+ `${s.btn}`} onClick={()=>{setCurrentPortion(currentProtion - 1)}}>Preview</button>}
     {pages.map((item, index) => {
         return <span 
@@ -23,7 +23,7 @@ const Pagintor = ({totalCount, pageSize = 10, changePage, currentPage = 1}) => {
         </span>
     })}
     {(portionCount < (pageCount - pageSize))&&<button className={`${common.btn}` +" "+ `${s.btn}`} onClick={()=>{setCurrentPortion(currentProtion + 1)}}>Next</button>}
- </>
+ </div>
 }
 
 export default Pagintor;

@@ -3,3 +3,8 @@
     padding-left: 30px;
     background: #dbe7fd;
 }
+@media (max-width: 850px) {
+    .wrp {
+        display: none;
+    }
+}

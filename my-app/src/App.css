@@ -10,10 +10,9 @@ body {
 .content {
     padding-left: 20px;
 }
-.video-wrp {
-  width: 100%;
-  height: 224px;
-  object-fit: cover;
+@media(max-width: 835px) {
+    .main {
+        grid-template-columns: 90%;
+    }
 }
-
 
