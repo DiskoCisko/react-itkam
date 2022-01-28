@@ -1,14 +1,11 @@
 import React from 'react';
 
-const Messages = (props) => {
-    debugger;
-    return (        
-        <p> 
-            {props.message.message}
-            <span>
-            {props.message.author}
-            </span>
-        </p>
-    )
-}
+const Messages = () => {
+  return (
+    <p>
+      hi
+    </p>
+  );
+};
+
 export default Messages;

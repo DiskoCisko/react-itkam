@@ -1,33 +1,48 @@
-import React from "react";
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import ProfileDataForm from './ProfileDataForm';
-import s from './../common/CommonStyles.module.css'
+import s from '../common/CommonStyles.module.css';
 
 const ProfileData = (props) => {
-
-const activeEditeMode = () => {
-  debugger
-  props.toggleEditeProfileMode(true)
-}
-    const contacts = []
-    for(let prop in props.contacts) {
-        if(props.contacts[prop]) {
-          contacts.push(<p>{prop}: <a href={props.contacts[prop]}>{props.contacts[prop]}</a></p>) 
-        }
-      }
-      let contact = contacts.map(item => {
-        return item
-      })
-      if (props.editeMode)  {
-          return <ProfileDataForm />
-      } else {
-        return <>
-        <p >{props.lookingForAJob?'Ищу работу':'В работе'}</p>
-        <p >{props.lookingForAJobDescription}</p>
-        <p >{contact}</p>
-        {props.isOwner && (<button className={s.btn} onClick={activeEditeMode}>Править</button>)}
-      </>
-      }
-      
-}
+  const activeEditeMode = () => {
+    props.toggleEditeProfileMode(true);
+  };
+  const contact = Object.keys(props.contacts).map((item) => {
+    return (
+      <p>
+        {item}: <a href={props.contacts[item]}>{props.contacts[item]}</a>
+      </p>
+    );
+  });
+  if (props.editeMode) {
+    return <ProfileDataForm />;
+  }
+  return (
+    <>
+      <p>{props.lookingForAJob ? 'Ищу работу' : 'В работе'}</p>
+      <p>{props.lookingForAJobDescription}</p>
+      <p>{contact}</p>
+      {props.isOwner && (
+        <button type="button" className={s.btn} onClick={activeEditeMode}>
+          Править
+        </button>
+      )}
+    </>
+  );
+};
+ProfileData.defaultProps = {
+  lookingForAJob: false,
+  editeMode: false,
+  lookingForAJobDescription: '',
+  contacts: {},
+};
+ProfileData.propTypes = {
+  lookingForAJob: PropTypes.bool,
+  editeMode: PropTypes.bool,
+  lookingForAJobDescription: PropTypes.string,
+  isOwner: PropTypes.bool.isRequired,
+  contacts: PropTypes.object,
+  toggleEditeProfileMode: PropTypes.func.isRequired,
+};
 
 export default ProfileData;

@@ -1,23 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {logoutUser} from './../../reduxe/auth_reducer';
+import { PropTypes } from 'prop-types';
+import { logoutUser } from '../../reduxe/auth_reducer';
 import Header from './Header';
-import { getLoginSelector } from './../../reduxe/selector';
+import { getLoginSelector } from '../../reduxe/selector';
 
-class HeaderCAPI extends React.Component {
-
-    render() {
-        return <Header
-           login={this.props.login}
-           logoutUser={this.props.logoutUser}
-        />
-    }
+class HeaderCAPI extends React.PureComponent {
+  render() {
+    return (
+      <Header login={this.props.login} logoutUser={this.props.logoutUser} />
+    );
+  }
 }
+HeaderCAPI.defaultProps = {
+  login: undefined,
+};
+HeaderCAPI.propTypes = {
+  login: PropTypes.string,
+  logoutUser: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
-    return {
-        login: getLoginSelector(state),
-    }
-}
+  return {
+    login: getLoginSelector(state),
+  };
+};
 
-export default connect(mapStateToProps, {logoutUser})(HeaderCAPI);
+export default connect(mapStateToProps, { logoutUser })(HeaderCAPI);

@@ -1,52 +1,51 @@
 export const getProfileSelector = (state) => {
-
-    return state.profile
-}
+  return state.profile;
+};
 
 export const getStatusSelector = (state) => {
-    return state.status.status
-}
+  return state.status.status;
+};
 
 export const getIdSelector = (state) => {
-    return state.auth.id
-}
+  return state.auth.id;
+};
 
 export const getUserSelector = (state) => {
-    return state.userPage.users
-}
+  return state.userPage.users;
+};
 
 export const getPageSizeSelector = (state) => {
-    return state.userPage.pageSize
-}
+  return state.userPage.pageSize;
+};
 
 export const getTotalCountSelector = (state) => {
-    return state.userPage.totalCount
-}
+  return state.userPage.totalCount;
+};
 
 export const getCurrentPageSelector = (state) => {
-    return state.userPage.currentPage
-}
+  return state.userPage.currentPage;
+};
 
 export const getIsFetchSelector = (state) => {
-    return state.userPage.isFetch
-}
+  return state.userPage.isFetch;
+};
 
 export const getIsFetchFollowSelector = (state) => {
-    return state.userPage.isFetchFollow
-}
+  return state.userPage.isFetchFollow;
+};
 
 export const getTogleFetcgFollowSelector = (state) => {
-    return state.userPage.togleFetcgFollow
-}
+  return state.userPage.togleFetcgFollow;
+};
 
 export const getLoginSelector = (state) => {
-    return state.auth.login
-}
+  return state.auth.login;
+};
 
 export const getDataUsersSelector = (state) => {
-    return state.dialogs.dataUsers
-}
+  return state.dialogs.dataUsers;
+};
 
 export const getDataMessagesSelector = (state) => {
-    return state.dialogs.dataMessages
-}
+  return state.dialogs.dataMessages;
+};
