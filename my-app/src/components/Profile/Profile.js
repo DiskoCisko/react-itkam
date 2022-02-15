@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import s from './Profile.module.css';
 import Status from './Status';
-import Photo from './Photo';
+import Photo from './Photo.tsx';
 import ProfileData from './ProfileData';
 
 const Profile = (props) => {

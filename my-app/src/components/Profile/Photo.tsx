@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types';
 import s from './Profile.module.css';
 import common from '../common/CommonStyles.module.css';
 
-const Photo = (props) => {
+export type PhotoType = {
+  large: string;
+  small: string;
+};
+
+type PhotoPropsType = {
+  photos: PhotoType;
+  isOwner: boolean;
+  savePhoto: any;
+};
+
+const Photo: React.FC<PhotoPropsType> = (props) => {
   const [photos, setPhotos] = useState(props.photos);
   const refreshePhoto = (e) => {
     if (e.target.value.length) {
@@ -37,10 +47,5 @@ const Photo = (props) => {
   );
 };
 
-Photo.propTypes = {
-  photos: PropTypes.array.isRequired,
-  isOwner: PropTypes.bool.isRequired,
-  savePhoto: PropTypes.func.isRequired,
-};
 
 export default Photo;

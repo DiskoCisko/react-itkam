@@ -1,4 +1,5 @@
 import { profileAPI } from '../DAL/api';
+import {PhotoType} from '../components/Profile/Photo'
 
 const SET_PROFILE = 'SET_PROFILE';
 const CHANGE_PHOTO = 'CHANGE_PHOTO';
@@ -6,28 +7,70 @@ const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE';
 
 const inintState = {
-  photos: [],
+  photos: {} as PhotoType | null,
 };
 
-const setProfile = (body) => {
+type ContactsType = {
+  github: string;
+  vk: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  website: string;
+  youtube: string;
+  mainLink: string;
+};
+
+type ProfileType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+};
+
+type setProfileActionType = (body: ProfileType) => {
+  type: typeof SET_PROFILE;
+  payload: ProfileType;
+};
+ 
+const setProfile: setProfileActionType = (body) => {
   return {
     type: SET_PROFILE,
     payload: body,
   };
 };
-const setErrorMessage = (message) => {
+
+type setErrorMessageActionType = (message: string) => {
+  type: typeof SET_ERROR_MESSAGE;
+  message: string;
+};
+
+const setErrorMessage: setErrorMessageActionType = (message) => {
   return {
     type: SET_ERROR_MESSAGE,
     message,
   };
 };
-const changePhoto = (photo) => {
+
+type changePhotoActionType = (photo: PhotoType) => {
+  type: typeof CHANGE_PHOTO;
+  photo: PhotoType;
+};
+
+const changePhoto: changePhotoActionType = (photo) => {
   return {
     type: CHANGE_PHOTO,
     photo,
   };
 };
-export const toggleEditeProfileMode = (bool) => {
+
+type toggleEditeProfileModeActionType = (bool: boolean) => {
+  type: typeof TOGGLE_EDITEMODE_PROFILE;
+  editeMode: boolean;
+};
+
+export const toggleEditeProfileMode: toggleEditeProfileModeActionType = (bool) => {
   return {
     type: TOGGLE_EDITEMODE_PROFILE,
     editeMode: bool,
@@ -61,7 +104,7 @@ export const savePhoto = (file) => {
   };
 };
 
-export const profileReducer = (state = inintState, action = {}) => {
+export const profileReducer = (state = inintState, action) => {
   switch (action.type) {
     case 'SET_PROFILE': {
       return {

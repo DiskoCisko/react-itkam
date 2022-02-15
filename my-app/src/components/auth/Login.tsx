@@ -1,14 +1,32 @@
 import { Redirect } from 'react-router-dom';
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import { PropTypes } from 'prop-types';
 import { FormContainer } from '../common/FormControll/FormController';
 
 export const WithFormReduxe = reduxForm({
   form: 'loginForm',
 })(FormContainer);
 
-const Login = ({ login, error, loginUser, captcha }) => {
+type LoginBodyType = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+  captcha?: boolean;
+};
+
+type LoginPropsType = {
+  login?: string;
+  error?: string;
+  captcha?: boolean;
+  loginUser: (a: LoginBodyType) => void;
+};
+
+const Login: React.FC<LoginPropsType> = ({
+  login,
+  error,
+  loginUser,
+  captcha,
+}) => {
   if (login) {
     return <Redirect to="/profile" />;
   }
@@ -18,17 +36,6 @@ const Login = ({ login, error, loginUser, captcha }) => {
       <WithFormReduxe errors={error} loginUser={loginUser} captcha={captcha} />
     </>
   );
-};
-Login.defaultProps = {
-  login: '',
-  error: '',
-  captcha: false,
-};
-Login.propTypes = {
-  login: PropTypes.string,
-  error: PropTypes.string,
-  loginUser: PropTypes.func.isRequired,
-  captcha: PropTypes.bool,
 };
 
 export default Login;

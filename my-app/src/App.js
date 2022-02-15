@@ -6,7 +6,7 @@ import HeaderCAPI from './components/Header/HeaderCAPI';
 import LeftMenu from './components/Left_menu/Left_menu';
 import withSuspense from './HOC/withSuspense';
 
-import { initializeApp } from './reduxe/app_reducer';
+import { initializeApp } from './reduxe/app_reducer.tsx';
 
 import AuthContainer from './components/auth/AuthContainer';
 

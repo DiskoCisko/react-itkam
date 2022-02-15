@@ -1,12 +1,12 @@
 import { auth } from '../DAL/api';
 
 const inintState = {
-  email: null,
-  login: undefined,
-  userId: null,
+  email: null as string | null,
+  login: null as string | null,
+  userId: null as number | null,
   isAuth: false,
-  error: null,
-  captcha: null,
+  error: null as string | null,
+  captcha: null as string | boolean,
 };
 
 const SET_AUTH = 'SET_AUTH';
@@ -14,24 +14,50 @@ const DEL_AUTH = 'DEL_AUTH';
 const SET_ERROR = 'SET_ERROR';
 const GET_CAPTCHA_SUCCESSE = 'GET_CAPTCHA_SUCCESSE';
 
-export const setAuth = (body) => {
+type AuthPropsType = {
+  id: number; login: string; email: string;
+}
+
+type setAuthActionType = ({ id, login, email }: AuthPropsType) => {
+  type: typeof SET_AUTH;
+  payload: AuthPropsType;
+};
+
+export const setAuth: setAuthActionType = (body) => {
   return {
     type: SET_AUTH,
     payload: body,
   };
 };
-export const delAuth = () => {
+
+type delAuthActionType = () => {
+  type: typeof DEL_AUTH;
+};
+
+export const delAuth: delAuthActionType = () => {
   return {
     type: DEL_AUTH,
   };
 };
-export const setError = (message) => {
+
+type setErrorActionType = (message: string) => {
+  type: typeof SET_ERROR;
+  message: string;
+};
+
+export const setError: setErrorActionType = (message) => {
   return {
     type: SET_ERROR,
     message,
   };
 };
-export const getCaptchaSuccesse = (url) => {
+
+type getCaptchaSuccesseActionType = (url: string) => {
+  type: typeof GET_CAPTCHA_SUCCESSE;
+  url: string;
+};
+
+export const getCaptchaSuccesse: getCaptchaSuccesseActionType = (url) => {
   return {
     type: GET_CAPTCHA_SUCCESSE,
     url,
@@ -41,7 +67,7 @@ export const getCaptchaSuccesse = (url) => {
 export const authUser = () => {
   return async (dispatch) => {
     const response = await auth.me();
-    const { id, login, email } = response.data.data;
+    const { id, login, email }: AuthPropsType = response.data.data;
     if (response.data.resultCode === 0) {
       dispatch(setAuth({ id, login, email }));
     }
@@ -84,7 +110,7 @@ export const logoutUser = () => {
   };
 };
 
-export const authReducer = (state = inintState, action = {}) => {
+export const authReducer = (state = inintState, action) => {
   switch (action.type) {
     case 'SET_AUTH': {
       return {

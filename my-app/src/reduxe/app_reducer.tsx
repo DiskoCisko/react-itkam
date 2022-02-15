@@ -1,4 +1,5 @@
-import { authUser } from './auth_reducer';
+import { authUser } from './auth_reducer.tsx';
+
 
 const inintState = {
   initialized: false,
@@ -6,7 +7,7 @@ const inintState = {
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
-export const appReducer = (state = inintState, action = {}) => {
+export const appReducer = (state = inintState, action) => {
   switch (action.type) {
     case 'INITIALIZED_SUCCESS': {
       return {
@@ -19,7 +20,11 @@ export const appReducer = (state = inintState, action = {}) => {
   }
 };
 
-export const initializedSuccess = () => {
+type InitializedSuccessActionType = () => {
+  type: typeof INITIALIZED_SUCCESS,
+};
+
+export const initializedSuccess: InitializedSuccessActionType = () => {
   return {
     type: INITIALIZED_SUCCESS,
   };

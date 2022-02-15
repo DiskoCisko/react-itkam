@@ -1,8 +1,12 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import s from './Posts.module.css';
 
-const Posts = (props) => {
+type PostsPropsType = {
+  photo: string;
+  text: string;
+};
+
+const Posts: React.FC<PostsPropsType> = (props) => {
   return (
     <div className={s.post}>
       <img
@@ -15,9 +19,6 @@ const Posts = (props) => {
   );
 };
 
-Posts.propTypes = {
-  photo: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
+
 
 export default Posts;
