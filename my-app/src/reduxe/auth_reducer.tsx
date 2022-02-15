@@ -1,4 +1,4 @@
-import { auth } from '../DAL/api';
+import { auth, authBodyType } from '../DAL/api.tsx';
 
 const inintState = {
   email: null as string | null,
@@ -18,46 +18,46 @@ type AuthPropsType = {
   id: number; login: string; email: string;
 }
 
-type setAuthActionType = ({ id, login, email }: AuthPropsType) => {
+type setAuthActionType = {
   type: typeof SET_AUTH;
   payload: AuthPropsType;
 };
 
-export const setAuth: setAuthActionType = (body) => {
+export const setAuth = (body: AuthPropsType): setAuthActionType => {
   return {
     type: SET_AUTH,
     payload: body,
   };
 };
 
-type delAuthActionType = () => {
+type delAuthActionType = {
   type: typeof DEL_AUTH;
 };
 
-export const delAuth: delAuthActionType = () => {
+export const delAuth = (): delAuthActionType => {
   return {
     type: DEL_AUTH,
   };
 };
 
-type setErrorActionType = (message: string) => {
+type setErrorActionType = {
   type: typeof SET_ERROR;
   message: string;
 };
 
-export const setError: setErrorActionType = (message) => {
+export const setError = (message: string): setErrorActionType => {
   return {
     type: SET_ERROR,
     message,
   };
 };
 
-type getCaptchaSuccesseActionType = (url: string) => {
+type getCaptchaSuccesseActionType = {
   type: typeof GET_CAPTCHA_SUCCESSE;
   url: string;
 };
 
-export const getCaptchaSuccesse: getCaptchaSuccesseActionType = (url) => {
+export const getCaptchaSuccesse = (url: string): getCaptchaSuccesseActionType => {
   return {
     type: GET_CAPTCHA_SUCCESSE,
     url,
@@ -82,12 +82,12 @@ export const getCaptcha = () => {
   };
 };
 
-export const loginUser = (body) => {
+export const loginUser = (body: authBodyType) => {
   return async (dispatch) => {
     const response = await auth.login(body);
     if (response.data.resultCode === 0) {
       auth.me().then((resp) => {
-        const { id, login, email } = resp.data.data;
+        const { id, login, email }: AuthPropsType = resp.data.data;
         if (resp.data.resultCode === 0) {
           dispatch(setAuth({ id, login, email }));
         } else dispatch(setError(resp.data.messages[0]));
@@ -110,7 +110,14 @@ export const logoutUser = () => {
   };
 };
 
-export const authReducer = (state = inintState, action) => {
+export const authReducer = (
+  state = inintState,
+  action:
+    | setAuthActionType
+    | delAuthActionType
+    | setErrorActionType
+    | getCaptchaSuccesseActionType
+) => {
   switch (action.type) {
     case 'SET_AUTH': {
       return {
@@ -135,6 +142,6 @@ export const authReducer = (state = inintState, action) => {
       };
     }
     default:
-      return state;
+      return state as typeof inintState;
   }
 };

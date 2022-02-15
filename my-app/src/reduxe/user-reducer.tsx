@@ -1,8 +1,8 @@
-import { userAPI } from '../DAL/api';
+import { userAPI } from '../DAL/api.tsx';
 import objectPropAdd from '../components/utils/object-prop-add';
 import { PhotoType } from '../components/Profile/Photo';
 
-type UserType = {
+export type UserType = {
   id: number;
   name: string;
   status?: string;
@@ -28,86 +28,86 @@ const CHANGE_TOTAL_COUNT_PAGE = 'CHANGE_TOTAL_COUNT_PAGE';
 const TOOGLE_IS_FETCH = 'TOOGLE_IS_FETCH';
 const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
-type onFollowActionType = (userId: number) => {
+type onFollowActionType = {
   type: typeof FOLLOW_USER;
   payload: number;
 };
 
-export const onFollow: onFollowActionType = (userId) => {
+export const onFollow = (userId: number): onFollowActionType => {
   return {
     type: FOLLOW_USER,
     payload: userId,
   };
 };
 
-type onUnfollowActionType = (userId: number) => {
+type onUnfollowActionType = {
   type: typeof UNFOLLOW_USER;
   payload: number;
 };
 
-export const onUnfollow: onUnfollowActionType = (userId) => {
+export const onUnfollow = (userId: number): onUnfollowActionType => {
   return {
     type: UNFOLLOW_USER,
     payload: userId,
   };
 };
 
-type setUsersActionType = (body: Array<UserType>) => {
+type setUsersActionType = {
   type: typeof SET_USER;
   payload: Array<UserType>;
 };
 
-export const setUsers: setUsersActionType = (body) => {
+export const setUsers = (body: Array<UserType>): setUsersActionType => {
   return {
     type: SET_USER,
     payload: body,
   };
 };
 
-type changePageActionType = (p: number) => {
+type changePageActionType = {
   type: typeof CHANGE_PAGE;
   payload: number;
 };
 
-export const changePage: changePageActionType = (p) => {
+export const changePage = (p: number): changePageActionType => {
   return {
     type: CHANGE_PAGE,
     payload: p,
   };
 };
 
-type changeTotalCountPageActionType = (p: number) => {
+type changeTotalCountPageActionType = {
   type: typeof CHANGE_TOTAL_COUNT_PAGE;
   payload: number;
 };
 
-export const changeTotalCountPage: changeTotalCountPageActionType = (p) => {
+export const changeTotalCountPage = (p: number): changeTotalCountPageActionType => {
   return {
     type: CHANGE_TOTAL_COUNT_PAGE,
     payload: p,
   };
 };
 
-type onFetchActionType = () => {
+type onFetchActionType = {
   type: typeof TOOGLE_IS_FETCH;
 };
 
-export const onFetch: onFetchActionType = () => {
+export const onFetch = (): onFetchActionType => {
   return {
     type: TOOGLE_IS_FETCH,
   };
 };
 
-type fetchingFollowActionType = (
-  isFetchFollow: boolean,
-  userId: number
-) => {
+type fetchingFollowActionType = {
   type: typeof TOGLE_FECHING_FOLLOW;
   userId: number;
   isFetchFollow: boolean;
 };
 
-export const fetchingFollow: fetchingFollowActionType = (isFetchFollow, userId) => {
+export const fetchingFollow = (
+  isFetchFollow: boolean,
+  userId: number
+): fetchingFollowActionType => {
   return {
     type: TOGLE_FECHING_FOLLOW,
     userId,
@@ -162,7 +162,17 @@ export const unfollow = (id) => {
   };
 };
 
-export const userReducer = (state = initStatev, action) => {
+export const userReducer = (
+  state = initStatev,
+  action:
+    | onFollowActionType
+    | onUnfollowActionType
+    | setUsersActionType
+    | changePageActionType
+    | changeTotalCountPageActionType
+    | onFetchActionType
+    | fetchingFollowActionType
+) => {
   switch (action.type) {
     case 'FOLLOW_USER': {
       const newUsers = objectPropAdd(state.users, action.payload, 'id', {

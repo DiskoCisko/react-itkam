@@ -7,7 +7,10 @@ const inintState = {
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
-export const appReducer = (state = inintState, action) => {
+export const appReducer = (
+  state = inintState,
+  action: InitializedSuccessActionType
+) => {
   switch (action.type) {
     case 'INITIALIZED_SUCCESS': {
       return {
@@ -16,15 +19,15 @@ export const appReducer = (state = inintState, action) => {
       };
     }
     default:
-      return state;
+      return state as typeof inintState;
   }
 };
 
-type InitializedSuccessActionType = () => {
+type InitializedSuccessActionType = {
   type: typeof INITIALIZED_SUCCESS,
 };
 
-export const initializedSuccess: InitializedSuccessActionType = () => {
+export const initializedSuccess = (): InitializedSuccessActionType => {
   return {
     type: INITIALIZED_SUCCESS,
   };

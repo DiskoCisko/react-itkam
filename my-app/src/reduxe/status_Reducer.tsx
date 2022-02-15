@@ -1,4 +1,4 @@
-import { profileAPI } from '../DAL/api';
+import { profileAPI } from '../DAL/api.tsx';
 
 const inintState = {
   formValue: '' as string,
@@ -7,30 +7,30 @@ const inintState = {
 const CHANGE_STAUS = 'CHANGE_STAUS';
 const SET_STATUS = 'SET_STATUS';
 
-type changeStatusActionType = (status: string) => {
+type changeStatusActionType = {
   type: typeof CHANGE_STAUS;
   payload: string
 };
 
-export const changeStatus: changeStatusActionType = (status) => {
+export const changeStatus = (status: string): changeStatusActionType => {
   return {
     type: CHANGE_STAUS,
     payload: status,
   };
 };
 
-type setStatusActionType = (status: string) => {
+type setStatusActionType = {
   type: typeof SET_STATUS;
   payload: string;
 };
 
-export const setStatus: setStatusActionType = (status) => {
+export const setStatus = (status: string): setStatusActionType => {
   return {
     type: SET_STATUS,
     payload: status,
   };
 };
-export const getStatus = (userId) => {
+export const getStatus = (userId: number) => {
   return async (dispatch) => {
     const response = await profileAPI.getStatus(userId);
     if (!response.data) {
@@ -57,7 +57,7 @@ export const updateStatus = (status: string) => {
     throw console.log(response);
   };
 };
-export const statusReducer = (state = inintState, action) => {
+export const statusReducer = (state = inintState, action: setStatusActionType) => {
   switch (action.type) {
     case 'SET_STATUS': {
       return {

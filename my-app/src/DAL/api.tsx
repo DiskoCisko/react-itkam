@@ -1,4 +1,35 @@
 import axios from 'axios';
+import { PhotoType } from '../components/Profile/Photo';
+import { ProfileType } from '../reduxe/profile_reducer';
+import { UserType } from '../reduxe/user-reducer';
+
+type ResponseType = {
+  resultCode: number;
+  messages: Array<string> | null;
+  data: object;
+};
+
+type ResponsePhotoType = {
+  resultCode: number;
+  messages: Array<string> | null;
+  data: PhotoType;
+};
+
+type authDataType = {
+  email: string;
+  password: string;
+  login: string;
+};
+
+type ResponseAuthType = {
+  resultCode: number;
+  messages: Array<string> | null;
+  data: authDataType;
+};
+
+type getCaptchaType = {
+  url: string;
+}
 
 const instence = axios.create({
   withCredentials: true,
@@ -8,7 +39,7 @@ const instence = axios.create({
   },
 });
 export const userAPI = {
-  getUsers(currentPage, pageSize) {
+  getUsers(currentPage: number, pageSize: number): Promise<UserType> {
     return instence
       .get(`users?page=${currentPage}&count=${pageSize}`, {
         withCredentials: true,
@@ -17,16 +48,16 @@ export const userAPI = {
         return response.data;
       });
   },
-  followUser(id) {
+  followUser(id: number): Promise<ResponseType> {
     return instence.post(
       `follow/${id}`,
       {},
       {
         withCredentials: true,
-      },
+      }
     );
   },
-  unfollowUser(id) {
+  unfollowUser(id: number): Promise<ResponseType> {
     return instence.delete(`follow/${id}`, {
       withCredentials: true,
     });
@@ -34,16 +65,16 @@ export const userAPI = {
 };
 
 export const profileAPI = {
-  getProfile(userId) {
+  getProfile(userId: number): Promise<ProfileType> {
     return instence.get(`profile/${userId}`);
   },
-  getStatus(userId) {
+  getStatus(userId: number): Promise<string> {
     return instence.get(`profile/status/${userId}`);
   },
-  updateStatus(body) {
+  updateStatus(body: string): Promise<ResponseType> {
     return instence.put('profile/status', body);
   },
-  savePhoto(photo) {
+  savePhoto(photo: File): Promise<ResponsePhotoType> {
     const formData = new FormData();
     formData.append('image', photo);
     return instence.put('profile/photo', formData, {
@@ -52,24 +83,31 @@ export const profileAPI = {
       },
     });
   },
-  saveProfile(body) {
+  saveProfile(body: ProfileType): Promise<ResponseType> {
     return instence.put('profile', body);
   },
 };
 
+export type authBodyType = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+  captcha?: boolean;
+};
+
 export const auth = {
-  login(body) {
+  login(body: authBodyType): Promise<ResponseType> {
     return instence.post('auth/login', body);
   },
-  logout() {
+  logout(): Promise<ResponseType> {
     return instence.delete('auth/login');
   },
-  me() {
+  me(): Promise<ResponseAuthType> {
     return instence.get('auth/me', {
       withCredentials: true,
     });
   },
-  getCaptcha() {
+  getCaptcha(): Promise<getCaptchaType> {
     return instence.get('security/get-captcha-url');
   },
 };

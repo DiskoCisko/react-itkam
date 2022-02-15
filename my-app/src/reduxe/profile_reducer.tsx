@@ -1,4 +1,4 @@
-import { profileAPI } from '../DAL/api';
+import { profileAPI } from '../DAL/api.tsx';
 import {PhotoType} from '../components/Profile/Photo'
 
 const SET_PROFILE = 'SET_PROFILE';
@@ -21,7 +21,7 @@ type ContactsType = {
   mainLink: string;
 };
 
-type ProfileType = {
+export type ProfileType = {
   userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
@@ -29,55 +29,57 @@ type ProfileType = {
   contacts: ContactsType;
 };
 
-type setProfileActionType = (body: ProfileType) => {
+type setProfileActionType = {
   type: typeof SET_PROFILE;
   payload: ProfileType;
 };
  
-const setProfile: setProfileActionType = (body) => {
+const setProfile = (body: ProfileType): setProfileActionType => {
   return {
     type: SET_PROFILE,
     payload: body,
   };
 };
 
-type setErrorMessageActionType = (message: string) => {
+type setErrorMessageActionType = {
   type: typeof SET_ERROR_MESSAGE;
   message: string;
 };
 
-const setErrorMessage: setErrorMessageActionType = (message) => {
+const setErrorMessage = (message: string): setErrorMessageActionType => {
   return {
     type: SET_ERROR_MESSAGE,
     message,
   };
 };
 
-type changePhotoActionType = (photo: PhotoType) => {
+type changePhotoActionType = {
   type: typeof CHANGE_PHOTO;
   photo: PhotoType;
 };
 
-const changePhoto: changePhotoActionType = (photo) => {
+const changePhoto = (photo: PhotoType): changePhotoActionType => {
   return {
     type: CHANGE_PHOTO,
     photo,
   };
 };
 
-type toggleEditeProfileModeActionType = (bool: boolean) => {
+type toggleEditeProfileModeActionType = {
   type: typeof TOGGLE_EDITEMODE_PROFILE;
   editeMode: boolean;
 };
 
-export const toggleEditeProfileMode: toggleEditeProfileModeActionType = (bool) => {
+export const toggleEditeProfileMode = (
+  bool: boolean
+): toggleEditeProfileModeActionType => {
   return {
     type: TOGGLE_EDITEMODE_PROFILE,
     editeMode: bool,
   };
 };
 
-export const saveProfile = (body) => {
+export const saveProfile = (body: ProfileType) => {
   return async (dispatch) => {
     let response = await profileAPI.saveProfile(body);
     if (response.data.resultCode === 0) {
@@ -88,14 +90,14 @@ export const saveProfile = (body) => {
   };
 };
 
-export const getProfile = (userId) => {
+export const getProfile = (userId: number) => {
   return async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
     dispatch(setProfile(response.data));
   };
 };
 
-export const savePhoto = (file) => {
+export const savePhoto = (file: File) => {
   return async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {
@@ -104,7 +106,10 @@ export const savePhoto = (file) => {
   };
 };
 
-export const profileReducer = (state = inintState, action) => {
+export const profileReducer = (
+  state = inintState as ProfileType | {photos: PhotoType},
+  action
+) => {
   switch (action.type) {
     case 'SET_PROFILE': {
       return {
