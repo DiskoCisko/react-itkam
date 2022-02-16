@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import Profile from './Profile';
-import { getStatus, updateStatus } from '../../reduxe/status_Reducer.tsx';
+import { getStatus, updateStatus } from '../../reduxe/status_Reducer.ts';
 import {
   getProfile,
   savePhoto,
   toggleEditeProfileMode,
-} from '../../reduxe/profile_reducer.tsx';
+} from '../../reduxe/profile_reducer.ts';
 import Loader from '../common/Loader';
 import {
   getProfileSelector,

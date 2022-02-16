@@ -1,14 +1,8 @@
-import { userAPI } from '../DAL/api.tsx';
+import { userAPI, UserType } from '../DAL/api';
 import objectPropAdd from '../components/utils/object-prop-add';
 import { PhotoType } from '../components/Profile/Photo';
 
-export type UserType = {
-  id: number;
-  name: string;
-  status?: string;
-  photos: PhotoType;
-  followed: boolean;
-};
+
 
 const initStatev = {
   users: [] as Array<UserType>,
@@ -172,7 +166,7 @@ export const userReducer = (
     | changeTotalCountPageActionType
     | onFetchActionType
     | fetchingFollowActionType
-) => {
+): typeof initStatev => {
   switch (action.type) {
     case 'FOLLOW_USER': {
       const newUsers = objectPropAdd(state.users, action.payload, 'id', {

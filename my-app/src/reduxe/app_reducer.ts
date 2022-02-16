@@ -1,4 +1,4 @@
-import { authUser } from './auth_reducer.tsx';
+import { authUser } from './auth_reducer';
 
 
 const inintState = {

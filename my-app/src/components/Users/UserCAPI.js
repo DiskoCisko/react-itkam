@@ -9,7 +9,7 @@ import {
   changeUserPage,
   follow,
   unfollow,
-} from '../../reduxe/user-reducer.tsx';
+} from '../../reduxe/user-reducer.ts';
 import {
   getUserSelector,
   getPageSizeSelector,

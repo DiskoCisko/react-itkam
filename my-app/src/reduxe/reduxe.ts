@@ -1,12 +1,13 @@
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
-import { profileReducer } from './profile_reducer.tsx';
-import { statusReducer } from './status_Reducer.tsx';
+import { profileReducer } from './profile_reducer';
+import { statusReducer } from './status_Reducer';
 // import messagasReducer from './messages_reducer.tsx';
-import { userReducer } from './user-reducer.tsx';
-import { authReducer } from './auth_reducer.tsx';
-import { appReducer } from './app_reducer.tsx';
+import { userReducer } from './user-reducer';
+import { authReducer } from './auth_reducer';
+import { appReducer } from './app_reducer';
+import { ReactType } from 'react';
 
 export const reducers = combineReducers({
   profile: profileReducer,
@@ -18,9 +19,10 @@ export const reducers = combineReducers({
   form: formReducer,
 });
 
-const composeEnhancers =
-  (typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+type RootReduxeType = typeof reducers;
+export type AppStateType = ReturnType<RootReduxeType>;
+//@ts-ignore
+const composeEnhancers =(typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
 export const store = createStore(

@@ -1,7 +1,7 @@
-import { profileAPI } from '../DAL/api.tsx';
+import { profileAPI } from '../DAL/api';
 
 const inintState = {
-  formValue: '' as string,
+  status: '' as string,
 };
 
 const CHANGE_STAUS = 'CHANGE_STAUS';
@@ -57,7 +57,10 @@ export const updateStatus = (status: string) => {
     throw console.log(response);
   };
 };
-export const statusReducer = (state = inintState, action: setStatusActionType) => {
+export const statusReducer = (
+  state = inintState,
+  action: setStatusActionType
+): typeof inintState => {
   switch (action.type) {
     case 'SET_STATUS': {
       return {

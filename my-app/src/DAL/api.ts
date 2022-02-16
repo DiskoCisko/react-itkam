@@ -1,35 +1,68 @@
 import axios from 'axios';
 import { PhotoType } from '../components/Profile/Photo';
 import { ProfileType } from '../reduxe/profile_reducer';
-import { UserType } from '../reduxe/user-reducer';
 
-type ResponseType = {
+export type UserType = {
+  id: number;
+  name: string;
+  status?: string;
+  photos: PhotoType;
+  followed: boolean;
+};
+
+type getProfileResponseType = {
   resultCode: number;
   messages: Array<string> | null;
-  data: object;
+  data: ProfileType;
+};
+
+type getUserResponseType = {
+  items: Array<UserType>;
+  totalCount?: number;
+  error?: string;
+};
+
+type ResponseType = {
+  data: {
+    resultCode: number;
+    messages: Array<string> | null;
+    data: object;
+  };
 };
 
 type ResponsePhotoType = {
-  resultCode: number;
-  messages: Array<string> | null;
-  data: PhotoType;
+  data: {
+    data: { photos: PhotoType };
+    resultCode: number;
+    messages: Array<string> | null;
+  };
 };
 
-type authDataType = {
-  email: string;
-  password: string;
+export type AuthPropsType = {
+  id: number;
   login: string;
+  email: string;
 };
+
+// type authDataType = {
+//   email: string;
+//   password: string;
+//   login: string;
+// };
 
 type ResponseAuthType = {
-  resultCode: number;
-  messages: Array<string> | null;
-  data: authDataType;
+  data: {
+    data: AuthPropsType;
+    messages: Array<string> | null;
+    resultCode: number;
+  };
 };
 
 type getCaptchaType = {
-  url: string;
-}
+  data: {
+    url: string;
+  };
+};
 
 const instence = axios.create({
   withCredentials: true,
@@ -39,7 +72,10 @@ const instence = axios.create({
   },
 });
 export const userAPI = {
-  getUsers(currentPage: number, pageSize: number): Promise<UserType> {
+  getUsers(
+    currentPage: number,
+    pageSize: number
+  ): Promise<getUserResponseType> {
     return instence
       .get(`users?page=${currentPage}&count=${pageSize}`, {
         withCredentials: true,
@@ -65,13 +101,13 @@ export const userAPI = {
 };
 
 export const profileAPI = {
-  getProfile(userId: number): Promise<ProfileType> {
+  getProfile(userId: number): Promise<getProfileResponseType> {
     return instence.get(`profile/${userId}`);
   },
-  getStatus(userId: number): Promise<string> {
+  getStatus(userId: number): Promise<{ data: string }> {
     return instence.get(`profile/status/${userId}`);
   },
-  updateStatus(body: string): Promise<ResponseType> {
+  updateStatus(body: { status: string }): Promise<ResponseType> {
     return instence.put('profile/status', body);
   },
   savePhoto(photo: File): Promise<ResponsePhotoType> {

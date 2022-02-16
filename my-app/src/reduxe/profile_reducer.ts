@@ -1,4 +1,4 @@
-import { profileAPI } from '../DAL/api.tsx';
+import { profileAPI } from '../DAL/api';
 import {PhotoType} from '../components/Profile/Photo'
 
 const SET_PROFILE = 'SET_PROFILE';
@@ -27,7 +27,11 @@ export type ProfileType = {
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
+  errMessage?: string;
+  editeMode?: boolean
 };
+
+
 
 type setProfileActionType = {
   type: typeof SET_PROFILE;
@@ -81,9 +85,9 @@ export const toggleEditeProfileMode = (
 
 export const saveProfile = (body: ProfileType) => {
   return async (dispatch) => {
-    let response = await profileAPI.saveProfile(body);
+    const response = await profileAPI.saveProfile(body);
     if (response.data.resultCode === 0) {
-      response = await profileAPI.getProfile(body.userId);
+    const response = await profileAPI.getProfile(body.userId);
       dispatch(setProfile(response.data));
       toggleEditeProfileMode(false);
     } else dispatch(setErrorMessage(response.data.messages[0]));
@@ -107,9 +111,13 @@ export const savePhoto = (file: File) => {
 };
 
 export const profileReducer = (
-  state = inintState as ProfileType | {photos: PhotoType},
-  action
-) => {
+  state = inintState as ProfileType | { photos: PhotoType },
+  action:
+    | setProfileActionType
+    | setErrorMessageActionType
+    | changePhotoActionType
+    | toggleEditeProfileModeActionType
+): ProfileType | { photos: PhotoType } => {
   switch (action.type) {
     case 'SET_PROFILE': {
       return {
@@ -123,7 +131,7 @@ export const profileReducer = (
       };
       return newState;
     }
-    case 'SET_ERROR_MESSAGE': {
+    case SET_ERROR_MESSAGE: {
       return {
         ...state,
         errMessage: action.message,
@@ -136,6 +144,6 @@ export const profileReducer = (
       };
     }
     default:
-      return state;
+      return state as ProfileType | { photos: PhotoType };
   }
 };

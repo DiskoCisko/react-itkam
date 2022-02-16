@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { logoutUser } from '../../reduxe/auth_reducer.tsx';
+import { logoutUser } from '../../reduxe/auth_reducer.ts';
 import Header from './Header';
 import { getLoginSelector } from '../../reduxe/selector';
 

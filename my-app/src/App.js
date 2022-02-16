@@ -6,13 +6,13 @@ import HeaderCAPI from './components/Header/HeaderCAPI';
 import LeftMenu from './components/Left_menu/Left_menu';
 import withSuspense from './HOC/withSuspense';
 
-import { initializeApp } from './reduxe/app_reducer.tsx';
+import { initializeApp } from './reduxe/app_reducer.ts';
 
 import AuthContainer from './components/auth/AuthContainer';
 
 import './App.css';
 import Loader from './components/common/Loader';
-import { store } from './reduxe/reduxe';
+import { store } from './reduxe/reduxe.ts';
 
 const ProfileContainer = React.lazy(() => {
   return import('./components/Profile/ProfileContainer');

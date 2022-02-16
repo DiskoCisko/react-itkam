@@ -1,4 +1,4 @@
-import { auth, authBodyType } from '../DAL/api.tsx';
+import { auth, authBodyType, AuthPropsType } from '../DAL/api';
 
 const inintState = {
   email: null as string | null,
@@ -14,9 +14,6 @@ const DEL_AUTH = 'DEL_AUTH';
 const SET_ERROR = 'SET_ERROR';
 const GET_CAPTCHA_SUCCESSE = 'GET_CAPTCHA_SUCCESSE';
 
-type AuthPropsType = {
-  id: number; login: string; email: string;
-}
 
 type setAuthActionType = {
   type: typeof SET_AUTH;
