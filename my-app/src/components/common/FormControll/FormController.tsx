@@ -9,6 +9,8 @@ import {
   maxSymbols20,
 } from '../../utils/validation';
 import s from '../CommonStyles.module.css';
+import { authBodyType } from '../../../DAL/api';
+import { ProfileType } from '../../../reduxe/profile_reducer';
 
 export const createdField = (
   name,
@@ -32,11 +34,19 @@ export const createdField = (
   );
 };
 
-export const FormContainer = ({
+type FormContainerPropsType = {
+  error: string;
+  loginUser: (body: authBodyType) => (dispatch: any) => Promise<void>;
+  captcha: string | boolean;
+  reset: any;
+  handleSubmit: any;
+};
+
+export const FormContainer: React.FC<FormContainerPropsType> = ({
   loginUser,
   reset,
   handleSubmit,
-  errors,
+  error,
   captcha,
 }) => {
   const submit = (values) => {
@@ -59,26 +69,23 @@ export const FormContainer = ({
           type: 'text',
           lable: 'Captcha',
         })}
-      {errors && <div className={s.summaryError}>{errors}</div>}
+      {error && <div className={s.summaryError}>{error}</div>}
       <button type="submit" className={s.btn}>
         Submit
       </button>
     </form>
   );
 };
-FormContainer.defaultProps = {
-  captcha: '',
-  errors: {},
-};
-FormContainer.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  captcha: PropTypes.string,
-  errors: PropTypes.object,
-  reset: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+
+type FormContainerProfileType = {
+  initialValues: ProfileType;
+  userId: number;
+  saveProfile: (body: ProfileType) => (dispatch: any) => Promise<void>;
+  profile: ProfileType;
+  handleSubmit: any;
 };
 
-export const FormContainerProfile = ({
+export const FormContainerProfile: React.FC<FormContainerProfileType> = ({
   handleSubmit,
   saveProfile,
   userId,

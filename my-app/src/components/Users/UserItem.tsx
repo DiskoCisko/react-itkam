@@ -1,10 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 import common from '../common/CommonStyles.module.css';
 import s from './Users.module.css';
+import { PhotoType } from '../Profile/Photo';
 
-const UserItem = (props) => {
+type UserItemType = {
+  id: number,
+  name: string,
+  photos: PhotoType,
+  status?: string,
+  followed: boolean,
+  onUnfollow: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  onFollow: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  togleFetcgFollow: number[],
+};
+
+const UserItem: React.FC<UserItemType> = (props) => {
   return (
     <div key={props.id} className={s.itemWrap}>
       <h1>{props.name}</h1>
@@ -29,7 +40,7 @@ const UserItem = (props) => {
         onClick={(e) => {
           props.followed ? props.onUnfollow(e) : props.onFollow(e);
         }}
-        id={props.id}
+        id={String(props.id)}
       >
         {props.followed ? 'unfollowed' : 'followed'}
       </button>
@@ -37,15 +48,6 @@ const UserItem = (props) => {
   );
 };
 
-UserItem.propTypes = {
-  followed: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  photos: PropTypes.object.isRequired,
-  togleFetcgFollow: PropTypes.func.isRequired,
-  onUnfollow: PropTypes.func.isRequired,
-  onFollow: PropTypes.func.isRequired,
-};
-
 export default UserItem;
+
+

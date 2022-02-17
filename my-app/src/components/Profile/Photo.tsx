@@ -8,9 +8,9 @@ export type PhotoType = {
 };
 
 type PhotoPropsType = {
-  photos: PhotoType;
   isOwner: boolean;
-  savePhoto: any;
+  photos: PhotoType;
+  savePhoto: (file: File) => (dispatch: any) => Promise<void>;
 };
 
 const Photo: React.FC<PhotoPropsType> = (props) => {

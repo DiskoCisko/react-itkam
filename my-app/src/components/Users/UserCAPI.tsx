@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { PropTypes } from 'prop-types';
-import User from './User';
+import User from './User.tsx';
 import {
   changeTotalCountPage,
   getUser,
   changeUserPage,
   follow,
   unfollow,
-} from '../../reduxe/user-reducer.ts';
+  changeTotalCountPageActionType,
+} from '../../reduxe/user-reducer';
 import {
   getUserSelector,
   getPageSizeSelector,
@@ -19,6 +19,8 @@ import {
   getIsFetchFollowSelector,
   getTogleFetcgFollowSelector,
 } from '../../reduxe/selector';
+import { AppStateType } from '../../reduxe/reduxe';
+import { UserType } from '../../DAL/api';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,20 +33,20 @@ const mapStateToProps = (state) => {
     togleFetcgFollow: getTogleFetcgFollowSelector(state),
   };
 };
-class UserCAPI extends React.Component {
+class UserCAPI extends React.Component<AllPropsType> {
   componentDidMount() {
     this.props.getUser(this.props.currentPage, this.props.pageSize);
   }
 
-  onFollow(e) {
+  onFollow(e: ChangeEvent<HTMLInputElement>) {
     this.props.follow(e.target.id);
   }
 
-  onUnfollow(e) {
+  onUnfollow(e: ChangeEvent<HTMLInputElement>) {
     this.props.unfollow(e.target.id);
   }
 
-  changePage(p) {
+  changePage(p: number) {
     this.props.changeUserPage(p, this.props.pageSize);
   }
 
@@ -68,30 +70,44 @@ class UserCAPI extends React.Component {
     );
   }
 }
-UserCAPI.defaultProps = {
-  pageSize: 1,
-  currentPage: 30,
-};
-UserCAPI.propTypes = {
-  isFetch: PropTypes.bool.isRequired,
-  totalCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number,
-  currentPage: PropTypes.number,
-  users: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
-  changeUserPage: PropTypes.func.isRequired,
-  follow: PropTypes.func.isRequired,
-  unfollow: PropTypes.func.isRequired,
-  isFetchFollow: PropTypes.func.isRequired,
-  togleFetcgFollow: PropTypes.func.isRequired,
+
+type AllPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+type MapStateToPropsType = {
+  users: UserType[];
+  pageSize: number;
+  totalCount: number;
+  currentPage: number;
+  isFetch: boolean;
+  isFetchFollow: boolean;
+  togleFetcgFollow: number[];
 };
 
+type MapDispatchToPropsType = {
+  changeTotalCountPage: (p: number) => changeTotalCountPageActionType;
+  getUser: (
+    currentPage: number,
+    pageSize: number
+  ) => (dispatch: any) => Promise<void>;
+  changeUserPage: (
+    currentPage: number,
+    pageSize: number
+  ) => (dispatch: any) => Promise<void>;
+  follow: (id: string) => (dispatch: any) => Promise<void>;
+  unfollow: (id: string) => (dispatch: any) => Promise<void>;
+};
+
+type OwnProps = {}
+
 export default compose(
-  connect(mapStateToProps, {
-    changeTotalCountPage,
-    getUser,
-    changeUserPage,
-    follow,
-    unfollow,
-  }),
+  connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(
+    mapStateToProps,
+    {
+      changeTotalCountPage,
+      getUser,
+      changeUserPage,
+      follow,
+      unfollow,
+    }
+  )
 )(UserCAPI);

@@ -1,30 +1,29 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import { BrowserRouter as Router, HashRouter, Route } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
-import HeaderCAPI from './components/Header/HeaderCAPI';
-import LeftMenu from './components/Left_menu/Left_menu';
+import HeaderCAPI from './components/Header/HeaderCAPI.tsx';
+import LeftMenu from './components/Left_menu/Left_menu.tsx';
 import withSuspense from './HOC/withSuspense';
 
-import { initializeApp } from './reduxe/app_reducer.ts';
+import { initializeApp } from './reduxe/app_reducer';
 
-import AuthContainer from './components/auth/AuthContainer';
+import AuthContainer from './components/auth/AuthContainer.tsx';
 
 import './App.css';
 import Loader from './components/common/Loader';
-import { store } from './reduxe/reduxe.ts';
+import { AppStateType, store } from './reduxe/reduxe';
 
 const ProfileContainer = React.lazy(() => {
-  return import('./components/Profile/ProfileContainer');
+  return import('./components/Profile/ProfileContainer.tsx');
 });
-const DialogsContainer = React.lazy(() => {
-  return import('./components/Dialogs/DiologsContainer');
-});
+// const DialogsContainer = React.lazy(() => {
+//   return import('./components/Dialogs/DiologsContainer');
+// });
 const UserCAPI = React.lazy(() => {
-  return import('./components/Users/UserCAPI');
+  return import('./components/Users/UserCAPI.tsx');
 });
 
-class App extends React.Component {
+class App extends React.Component<PropsType> {
   componentDidMount() {
     this.props.initializeApp();
   }
@@ -44,7 +43,7 @@ class App extends React.Component {
                 path="/profile/:userId?"
                 render={withSuspense(ProfileContainer)}
               />
-              <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
+              {/* <Route path="/dialogs" render={withSuspense(DialogsContainer)} /> */}
               <Route path="/users" render={withSuspense(UserCAPI)} />
               <Route path="/login">
                 <AuthContainer />
@@ -57,17 +56,31 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  initializeApp: PropTypes.func.isRequired,
-  initialized: PropTypes.bool.isRequired,
+type PropsType = MapStateToPropsType & MapDispatcheToPropsType;
+
+type MapStateToPropsType = {
+  initialized: boolean;
 };
 
-const mapStateToProps = (state) => {
+type MapDispatcheToPropsType = {
+  initializeApp: () => (dispatch: any) => void;
+};
+
+type OwnProps = {}
+
+const mapStateToProps = (state: AppStateType) => {
   return {
     initialized: state.app.initialized,
   };
 };
-const AppContainer = connect(mapStateToProps, { initializeApp })(App);
+const AppContainer = connect<
+  MapStateToPropsType,
+  MapDispatcheToPropsType,
+  OwnProps,
+  AppStateType
+>(mapStateToProps, {
+  initializeApp,
+})(App);
 
 const MainApp = () => {
   return (

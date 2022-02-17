@@ -1,11 +1,24 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import Loader from '../common/Loader';
-import Pagintor from './Paginator';
-import UserItem from './UserItem';
+import Pagintor from './Paginator.tsx';
+import UserItem from './UserItem.tsx';
 import s from './Users.module.css';
+import { UserType } from '../../DAL/api';
 
-const User = (props) => {
+type UserPropsType = {
+  totalCount: number;
+  currentPage: number;
+  users: UserType[];
+  pageSize: number;
+  changePage: (p: number) => void;
+  onUnfollow: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFollow: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isFetch: boolean;
+  isFetchFollow: boolean;
+  togleFetcgFollow: number[];
+};
+
+const User: React.FC<UserPropsType> = (props) => {
   const users = props.users.map((item) => {
     return (
       <UserItem
@@ -37,18 +50,6 @@ const User = (props) => {
       )}
     </div>
   );
-};
-
-User.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  totalCount: PropTypes.number.isRequired,
-  isFetch: PropTypes.bool.isRequired,
-  users: PropTypes.array.isRequired,
-  onUnfollow: PropTypes.func.isRequired,
-  onFollow: PropTypes.func.isRequired,
-  togleFetcgFollow: PropTypes.func.isRequired,
-  changePage: PropTypes.func.isRequired,
 };
 
 export default User;

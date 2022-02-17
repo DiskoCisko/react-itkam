@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
-const Status = (props) => {
+type StatusPropsType = {
+  userId: number;
+  id: number;
+  status: string;
+  updateStatus: (status: string) => (dispatch: any) => Promise<never>;
+};
+
+const Status: React.FC<StatusPropsType> = (props) => {
   const [isEditMode, setIsEditeMode] = useState(false);
   const [status, setStatus] = useState(props.status);
 
@@ -10,7 +16,7 @@ const Status = (props) => {
   }, [props.status]);
 
   const letEditStatus = () => {
-    debugger
+    debugger;
     if (props.id === props.id) {
       setIsEditeMode(true);
     }
@@ -19,7 +25,7 @@ const Status = (props) => {
     setIsEditeMode(false);
     props.updateStatus(status);
   };
-  const changeStatus = (e) => {
+  const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value);
   };
 
@@ -33,17 +39,6 @@ const Status = (props) => {
       placeholder={status}
     />
   );
-};
-Status.defaultProps = {
-  status: undefined,
-  id: undefined,
-  userId: undefined,
-};
-Status.propTypes = {
-  status: PropTypes.string,
-  id: PropTypes.number,
-  userId: PropTypes.number,
-  updateStatus: PropTypes.func.isRequired,
 };
 
 export default Status;

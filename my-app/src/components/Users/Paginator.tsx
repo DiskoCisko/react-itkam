@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { PropTypes } from 'prop-types';
 import s from './Users.module.css';
 import common from '../common/CommonStyles.module.css';
 
-const Pagintor = ({
+type PagintorPropsType = {
+  totalCount: number;
+  changePage: (item: number) => void;
+  pageSize?: number;
+  currentPage?: number;
+};
+
+const Pagintor: React.FC<PagintorPropsType> = ({
   totalCount,
   changePage,
   pageSize = 10,
@@ -11,9 +17,9 @@ const Pagintor = ({
 }) => {
   const pageCount = Math.ceil(totalCount / pageSize);
   const [currentProtion, setCurrentPortion] = useState(
-    Math.ceil(currentPage / pageSize),
+    Math.ceil(currentPage / pageSize)
   );
-  const pages = [];
+  const pages = [] as Array<number>;
   const portionCount = (currentProtion - 1) * pageSize + 1;
   const pageView =
     pageCount < portionCount + pageSize
@@ -62,13 +68,6 @@ const Pagintor = ({
       )}
     </div>
   );
-};
-
-Pagintor.propTypes = {
-  totalCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  changePage: PropTypes.func.isRequired,
 };
 
 export default Pagintor;

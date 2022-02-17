@@ -84,7 +84,7 @@ export const userAPI = {
         return response.data;
       });
   },
-  followUser(id: number): Promise<ResponseType> {
+  followUser(id: string): Promise<ResponseType> {
     return instence.post(
       `follow/${id}`,
       {},
@@ -93,7 +93,7 @@ export const userAPI = {
       }
     );
   },
-  unfollowUser(id: number): Promise<ResponseType> {
+  unfollowUser(id: string): Promise<ResponseType> {
     return instence.delete(`follow/${id}`, {
       withCredentials: true,
     });

@@ -1,10 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 import s from './Header.module.css';
 import common from '../common/CommonStyles.module.css';
 
-const Header = (props) => {
+type HeaderPropsType = {
+  login: string,
+  logoutUser: () => (dispatch: any) => Promise<void>,
+};
+
+const Header: React.FC<HeaderPropsType> = (props) => {
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -47,15 +51,6 @@ const Header = (props) => {
       </div>
     </header>
   );
-};
-
-Header.defaultProps = {
-  login: undefined,
-};
-
-Header.propTypes = {
-  login: PropTypes.string,
-  logoutUser: PropTypes.func.isRequired,
 };
 
 export default Header;

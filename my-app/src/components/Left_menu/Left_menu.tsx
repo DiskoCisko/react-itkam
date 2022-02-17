@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
-import FiendsList from '../Friends_list/Friends_list';
+import FiendsList from '../Friends_list/Friends_list.tsx';
 import s from './LeftMenu.module.css';
 import { getUserSelector } from '../../reduxe/selector';
+import { UserType } from '../../DAL/api';
 
-const LeftMenu = ({ users }) => {
+const LeftMenu: React.FC<mapStateToPropsType> = ({ users }) => {
   // useEffect(() => {
   //   getUser();
   // }, []);
@@ -14,7 +14,8 @@ const LeftMenu = ({ users }) => {
       return (
         <FiendsList id={item.id} img={item.photos.small} name={item.name} />
       );
-    } return '';
+    }
+    return '';
   });
   return (
     <div className={s.wrp}>
@@ -24,9 +25,8 @@ const LeftMenu = ({ users }) => {
   );
 };
 
-LeftMenu.propTypes = {
-  users: PropTypes.array.isRequired,
-
+type mapStateToPropsType = {
+  users: UserType[];
 };
 
 const mapStateToProps = (state) => {

@@ -3,7 +3,7 @@ import { auth, authBodyType, AuthPropsType } from '../DAL/api';
 const inintState = {
   email: null as string | null,
   login: null as string | null,
-  userId: null as number | null,
+  id: null as number | null,
   isAuth: false,
   error: null as string | null,
   captcha: null as string | boolean,
@@ -114,21 +114,24 @@ export const authReducer = (
     | delAuthActionType
     | setErrorActionType
     | getCaptchaSuccesseActionType
-) => {
+): typeof inintState => {
   switch (action.type) {
     case 'SET_AUTH': {
       return {
+        ...state,
         ...action.payload,
         isAuth: true,
       };
     }
     case 'DEL_AUTH': {
       return {
+        ...state,
         isAuth: false,
       };
     }
     case 'SET_ERROR': {
       return {
+        ...state,
         error: action.message,
       };
     }

@@ -10,7 +10,7 @@ const inintState = {
   photos: {} as PhotoType | null,
 };
 
-type ContactsType = {
+export type ContactsType = {
   github: string;
   vk: string;
   facebook: string;
@@ -28,7 +28,8 @@ export type ProfileType = {
   fullName: string;
   contacts: ContactsType;
   errMessage?: string;
-  editeMode?: boolean
+  editeMode?: boolean;
+  photos?: PhotoType;
 };
 
 
@@ -69,7 +70,7 @@ const changePhoto = (photo: PhotoType): changePhotoActionType => {
   };
 };
 
-type toggleEditeProfileModeActionType = {
+export type toggleEditeProfileModeActionType = {
   type: typeof TOGGLE_EDITEMODE_PROFILE;
   editeMode: boolean;
 };
@@ -111,13 +112,13 @@ export const savePhoto = (file: File) => {
 };
 
 export const profileReducer = (
-  state = inintState as ProfileType | { photos: PhotoType },
+  state = inintState as ProfileType,
   action:
     | setProfileActionType
     | setErrorMessageActionType
     | changePhotoActionType
     | toggleEditeProfileModeActionType
-): ProfileType | { photos: PhotoType } => {
+): ProfileType => {
   switch (action.type) {
     case 'SET_PROFILE': {
       return {
@@ -144,6 +145,6 @@ export const profileReducer = (
       };
     }
     default:
-      return state as ProfileType | { photos: PhotoType };
+      return state as ProfileType;
   }
 };

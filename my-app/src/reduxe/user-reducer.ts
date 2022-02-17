@@ -70,7 +70,7 @@ export const changePage = (p: number): changePageActionType => {
   };
 };
 
-type changeTotalCountPageActionType = {
+export type changeTotalCountPageActionType = {
   type: typeof CHANGE_TOTAL_COUNT_PAGE;
   payload: number;
 };
@@ -140,12 +140,12 @@ export const followUnfloowFlow = async (
   }
   dispatch(fetchingFollow(false, id));
 };
-export const follow = (id) => {
+export const follow = (id: string) => {
   return async (dispatch) => {
     followUnfloowFlow(dispatch, id, userAPI.followUser.bind(userAPI), onFollow);
   };
 };
-export const unfollow = (id) => {
+export const unfollow = (id: string) => {
   return async (dispatch) => {
     followUnfloowFlow(
       dispatch,
