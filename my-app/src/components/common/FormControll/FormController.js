@@ -92,7 +92,7 @@ export const FormContainerProfile = ({
   };
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <button type="button" className={s.btn}>
+      <button type="submit" className={s.btn}>
         Save
       </button>
       {profile.errMessage && (

@@ -10,7 +10,8 @@ const Status = (props) => {
   }, [props.status]);
 
   const letEditStatus = () => {
-    if (props.id === props.userId) {
+    debugger
+    if (props.id === props.id) {
       setIsEditeMode(true);
     }
   };
