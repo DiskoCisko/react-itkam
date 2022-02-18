@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import { auth, authBodyType, AuthPropsType } from '../DAL/api';
+import { AppStateType } from './reduxe';
 
 const inintState = {
   email: null as string | null,
@@ -61,7 +63,12 @@ export const getCaptchaSuccesse = (url: string): getCaptchaSuccesseActionType =>
   };
 };
 
-export const authUser = () => {
+export const authUser = (): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  setAuthActionType
+> => {
   return async (dispatch) => {
     const response = await auth.me();
     const { id, login, email }: AuthPropsType = response.data.data;
@@ -72,14 +79,26 @@ export const authUser = () => {
   };
 };
 
-export const getCaptcha = () => {
+export const getCaptcha = (): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  getCaptchaSuccesseActionType
+> => {
   return async (dispatch) => {
     const response = await auth.getCaptcha();
     dispatch(getCaptchaSuccesse(response.data.url));
   };
 };
 
-export const loginUser = (body: authBodyType) => {
+export const loginUser = (
+  body: authBodyType
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  setAuthActionType | setErrorActionType
+> => {
   return async (dispatch) => {
     const response = await auth.login(body);
     if (response.data.resultCode === 0) {
@@ -98,7 +117,12 @@ export const loginUser = (body: authBodyType) => {
   };
 };
 
-export const logoutUser = () => {
+export const logoutUser = (): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  delAuthActionType
+> => {
   return async (dispatch) => {
     const response = await auth.logout();
     if (response.data.resultCode === 0) {

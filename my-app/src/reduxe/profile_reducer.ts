@@ -1,5 +1,7 @@
 import { profileAPI } from '../DAL/api';
 import {PhotoType} from '../components/Profile/Photo'
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from './reduxe';
 
 const SET_PROFILE = 'SET_PROFILE';
 const CHANGE_PHOTO = 'CHANGE_PHOTO';
@@ -84,25 +86,36 @@ export const toggleEditeProfileMode = (
   };
 };
 
-export const saveProfile = (body: ProfileType) => {
+export const saveProfile = (
+  body: ProfileType
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  setProfileActionType | setErrorMessageActionType
+> => {
   return async (dispatch) => {
     const response = await profileAPI.saveProfile(body);
     if (response.data.resultCode === 0) {
-    const response = await profileAPI.getProfile(body.userId);
+      const response = await profileAPI.getProfile(body.userId);
       dispatch(setProfile(response.data));
       toggleEditeProfileMode(false);
     } else dispatch(setErrorMessage(response.data.messages[0]));
   };
 };
 
-export const getProfile = (userId: number) => {
+export const getProfile = (
+  userId: number
+): ThunkAction<void, AppStateType, unknown, setProfileActionType> => {
   return async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
     dispatch(setProfile(response.data));
   };
 };
 
-export const savePhoto = (file: File) => {
+export const savePhoto = (
+  file: File
+): ThunkAction<void, AppStateType, unknown, changePhotoActionType> => {
   return async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {

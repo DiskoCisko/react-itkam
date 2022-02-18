@@ -1,6 +1,8 @@
 import { userAPI, UserType } from '../DAL/api';
 import objectPropAdd from '../components/utils/object-prop-add';
-import { PhotoType } from '../components/Profile/Photo';
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from './reduxe';
+import { Dispatch } from 'redux';
 
 
 
@@ -109,7 +111,15 @@ export const fetchingFollow = (
   };
 };
 
-export const getUser = (currentPage: number, pageSize: number) => {
+export const getUser = (
+  currentPage: number,
+  pageSize: number
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  onFetchActionType | changeTotalCountPageActionType | setUsersActionType
+> => {
   return async (dispatch) => {
     dispatch(onFetch());
     const response = await userAPI.getUsers(currentPage, pageSize);
@@ -118,7 +128,15 @@ export const getUser = (currentPage: number, pageSize: number) => {
     dispatch(setUsers(response.items));
   };
 };
-export const changeUserPage = (currentPage: number, pageSize: number) => {
+export const changeUserPage = (
+  currentPage: number,
+  pageSize: number
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  onFetchActionType | changePageActionType | setUsersActionType
+> => {
   return async (dispatch) => {
     dispatch(changePage(currentPage));
     dispatch(onFetch());
@@ -128,10 +146,12 @@ export const changeUserPage = (currentPage: number, pageSize: number) => {
   };
 };
 export const followUnfloowFlow = async (
-  dispatch,
-  id,
+  dispatch: Dispatch<
+    fetchingFollowActionType | onUnfollowActionType | onFollowActionType
+  >,
+  id: number,
   apiMethid,
-  actionCreator
+  actionCreator: (userId: number) => onFollowActionType | onUnfollowActionType
 ) => {
   dispatch(fetchingFollow(true, id));
   const response = await apiMethid(id);
@@ -140,12 +160,22 @@ export const followUnfloowFlow = async (
   }
   dispatch(fetchingFollow(false, id));
 };
-export const follow = (id: string) => {
+
+export const follow = (
+  id: number
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  onFollowActionType
+> => {
   return async (dispatch) => {
     followUnfloowFlow(dispatch, id, userAPI.followUser.bind(userAPI), onFollow);
   };
 };
-export const unfollow = (id: string) => {
+export const unfollow = (
+  id: number
+): ThunkAction<void, AppStateType, unknown, onUnfollowActionType> => {
   return async (dispatch) => {
     followUnfloowFlow(
       dispatch,
@@ -155,7 +185,6 @@ export const unfollow = (id: string) => {
     );
   };
 };
-
 export const userReducer = (
   state = initStatev,
   action:

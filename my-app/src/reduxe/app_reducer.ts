@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import { authUser } from './auth_reducer';
+import { AppStateType } from './reduxe';
 
 
 const inintState = {
@@ -33,9 +35,14 @@ export const initializedSuccess = (): InitializedSuccessActionType => {
   };
 };
 
-export const initializeApp = () => {
+export const initializeApp = (): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  InitializedSuccessActionType
+> => {
   return (dispatch) => {
-    const promise = dispatch(authUser());
+    const promise: any = dispatch(authUser());
     promise.then(() => {
       dispatch(initializedSuccess());
     });
