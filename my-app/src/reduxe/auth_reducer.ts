@@ -121,16 +121,17 @@ export const logoutUser = (): ThunkAction<
   void,
   AppStateType,
   unknown,
-  delAuthActionType
+  delAuthActionType | setAuthActionType
+  
 > => {
   return async (dispatch) => {
     const response = await auth.logout();
     if (response.data.resultCode === 0) {
       dispatch(delAuth());
-    }
+      dispatch(setAuth( { id: null, login: null, email: null } ))
   };
 };
-
+}
 export const authReducer = (
   state = inintState,
   action:

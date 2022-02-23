@@ -1,24 +1,33 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { PropTypes } from 'prop-types';
-import { Input } from './Input';
+import { Input } from './Input.tsx';
 import Textarea from './Textarea';
 import {
   requiredFilled,
   minSymbols6,
   maxSymbols20,
+  ValidatorType,
 } from '../../utils/validation';
 import s from '../CommonStyles.module.css';
 import { authBodyType } from '../../../DAL/api';
 import { ProfileType } from '../../../reduxe/profile_reducer';
 
-export const createdField = (
-  name,
+export type CreatedFieldType = (
+  name: string,
+  component: any,
+  validators: Array<ValidatorType>,
+  props: any,
+  placeholder?: string,
+  text?: string
+) => JSX.Element;
+
+export const createdField: CreatedFieldType = (
+  name: string,
   component,
-  validators,
+  validators: Array<ValidatorType>,
   props,
   placeholder = '',
-  text = '',
+  text = ''
 ) => {
   return (
     <div>
@@ -37,7 +46,7 @@ export const createdField = (
 type FormContainerPropsType = {
   error: string;
   loginUser: (body: authBodyType) => (dispatch: any) => Promise<void>;
-  captcha: string | boolean;
+  captcha: string;
   reset: any;
   handleSubmit: any;
 };
@@ -95,7 +104,7 @@ export const FormContainerProfile: React.FC<FormContainerProfileType> = ({
     saveProfile({
       ...values,
       userId,
-    }).then(() => {});
+    });
   };
   return (
     <form onSubmit={handleSubmit(submit)}>
@@ -123,7 +132,7 @@ export const FormContainerProfile: React.FC<FormContainerProfileType> = ({
       {createdField('AboutMe', Textarea, [], {
         type: 'text',
         lable: 'About me',
-        value: profile.AboutMe,
+        value: profile.lookingForAJobDescription,
       })}
       <h3>Contacts</h3>
       {Object.keys(profile.contacts).map((item) => {
@@ -134,11 +143,4 @@ export const FormContainerProfile: React.FC<FormContainerProfileType> = ({
       })}
     </form>
   );
-};
-
-FormContainerProfile.propTypes = {
-  profile: PropTypes.object.isRequired,
-  userId: PropTypes.number.isRequired,
-  saveProfile: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };

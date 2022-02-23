@@ -1,15 +1,15 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { PropTypes } from 'prop-types';
 import s from './PostForm.module.css';
+import { CreatedFieldType } from './FormController';
 
-export const createdField = (
+export const createdField: CreatedFieldType = (
   name,
   component,
   validators,
   props,
   placeholder = '',
-  text = '',
+  text = ''
 ) => {
   return (
     <div>
@@ -36,8 +36,4 @@ export const Input = ({ input, ...props }) => {
   );
 };
 
-Input.propTypes = {
-  lable: PropTypes.string.isRequired,
-  input: PropTypes.any.isRequired,
-  meta: PropTypes.object.isRequired,
-};
+

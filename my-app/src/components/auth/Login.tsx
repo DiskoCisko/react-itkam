@@ -9,6 +9,7 @@ export const WithFormReduxe = reduxForm({
 })(FormContainer);
 
 const Login: React.FC<PropsType> = ({ login, error, loginUser, captcha }) => {
+
   if (login) {
     return <Redirect to="/profile" />;
   }

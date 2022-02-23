@@ -7,6 +7,7 @@ import { AppStateType } from '../../reduxe/reduxe';
 
 class HeaderCAPI extends React.PureComponent<PropsType> {
   render() {
+    
     return (
       <Header login={this.props.login} logoutUser={this.props.logoutUser} />
     );
@@ -23,7 +24,8 @@ type MapDispatcheToPropsType = {
   logoutUser: () => (dispatch: any) => Promise<void>;
 };
 
-type OwnProps = {};
+type OwnProps = {
+};
 
 const mapStateToProps = (state) => {
   return {

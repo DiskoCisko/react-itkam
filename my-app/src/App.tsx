@@ -59,6 +59,7 @@ class App extends React.Component<PropsType> {
 type PropsType = MapStateToPropsType & MapDispatcheToPropsType;
 
 type MapStateToPropsType = {
+  isAuth: boolean;
   initialized: boolean;
 };
 
@@ -66,10 +67,11 @@ type MapDispatcheToPropsType = {
   initializeApp: () => (dispatch: any) => void;
 };
 
-type OwnProps = {}
+type OwnProps = {};
 
 const mapStateToProps = (state: AppStateType) => {
   return {
+    isAuth: state.auth.isAuth,
     initialized: state.app.initialized,
   };
 };

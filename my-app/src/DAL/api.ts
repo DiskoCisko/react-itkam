@@ -39,9 +39,9 @@ type ResponsePhotoType = {
 };
 
 export type AuthPropsType = {
-  id: number;
-  login: string;
-  email: string;
+  id: number | null;
+  login: string | null;
+  email: string | null;
 };
 
 // type authDataType = {
