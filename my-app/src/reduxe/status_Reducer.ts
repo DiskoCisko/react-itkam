@@ -51,8 +51,7 @@ export const updateStatus = (
     });
     if (response.resultCode === 0) {
       dispatch(changeStatus(status));
-    }
-    throw console.log(response);
+    } throw console.log(response);
   };
 };
 export const statusReducer = (

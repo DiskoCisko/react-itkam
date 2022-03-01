@@ -72,8 +72,8 @@ export const authUser = (): ThunkAction<
 > => {
   return async (dispatch) => {
     const response = await auth.me();
-    const { id, login, email }: AuthPropsType = response.data.data;
-    if (response.data.resultCode === 0) {
+    const { id, login, email }: AuthPropsType = response.data;
+    if (response.resultCode === 0) {
       dispatch(setAuth({ id, login, email }));
     }
     return response;
@@ -88,7 +88,7 @@ export const getCaptcha = (): ThunkAction<
 > => {
   return async (dispatch) => {
     const response = await auth.getCaptcha();
-    dispatch(getCaptchaSuccesse(response.data.url));
+    dispatch(getCaptchaSuccesse(response.url));
   };
 };
 
@@ -102,18 +102,18 @@ export const loginUser = (
 > => {
   return async (dispatch) => {
     const response = await auth.login(body);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
       auth.me().then((resp) => {
-        const { id, login, email }: AuthPropsType = resp.data.data;
-        if (resp.data.resultCode === 0) {
+        const { id, login, email }: AuthPropsType = resp.data;
+        if (resp.resultCode === 0) {
           dispatch(setAuth({ id, login, email }));
-        } else dispatch(setError(resp.data.messages[0]));
+        } else dispatch(setError(resp.messages[0]));
       });
-    } else if (response.data.resultCode === 10) {
+    } else if (response.resultCode === 10) {
       dispatch(getCaptcha());
-      dispatch(setError(response.data.messages[0]));
+      dispatch(setError(response.messages[0]));
     } else {
-      dispatch(setError(response.data.messages[0]));
+      dispatch(setError(response.messages[0]));
     }
   };
 };
@@ -127,7 +127,7 @@ export const logoutUser = (): ThunkAction<
 > => {
   return async (dispatch) => {
     const response = await auth.logout();
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
       dispatch(delAuth());
       dispatch(setAuth( { id: null, login: null, email: null } ))
       dispatch(delProfile());

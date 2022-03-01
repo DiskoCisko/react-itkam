@@ -155,7 +155,7 @@ export const followUnfloowFlow = async (
 ) => {
   dispatch(fetchingFollow(true, id));
   const response = await apiMethid(id);
-  if (response.data.resultCode === 0) {
+  if (response.resultCode === 0) {
     dispatch(actionCreator(id));
   }
   dispatch(fetchingFollow(false, id));

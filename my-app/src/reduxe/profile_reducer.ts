@@ -105,11 +105,11 @@ export const saveProfile = (
 > => {
   return async (dispatch) => {
     const response = await profileAPI.saveProfile(body);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
       const response = await profileAPI.getProfile(body.userId);
       dispatch(setProfile(response.data));
       toggleEditeProfileMode(false);
-    } else dispatch(setErrorMessage(response.data.messages[0]));
+    } else dispatch(setErrorMessage(response.messages[0]));
   };
 };
 
@@ -127,8 +127,8 @@ export const savePhoto = (
 ): ThunkAction<void, AppStateType, unknown, changePhotoActionType> => {
   return async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
-    if (response.data.resultCode === 0) {
-      dispatch(changePhoto(response.data.data.photos));
+    if (response.resultCode === 0) {
+      dispatch(changePhoto(response.data.photos));
     }
   };
 };
