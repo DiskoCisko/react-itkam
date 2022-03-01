@@ -61,6 +61,12 @@ type getCaptchaType = {
 
 };
 
+export enum ResultCode {
+  Succsess = 0,
+  Error = 1,
+  Captcha = 10
+}
+
 const instence = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/' as string,

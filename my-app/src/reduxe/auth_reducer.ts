@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { auth, authBodyType, AuthPropsType } from '../DAL/api';
+import { auth, authBodyType, AuthPropsType, ResultCode } from '../DAL/api';
 import { delProfile, delProfileActionType } from './profile_reducer';
 import { AppStateType } from './reduxe';
 
@@ -73,7 +73,7 @@ export const authUser = (): ThunkAction<
   return async (dispatch) => {
     const response = await auth.me();
     const { id, login, email }: AuthPropsType = response.data;
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       dispatch(setAuth({ id, login, email }));
     }
     return response;
@@ -102,14 +102,14 @@ export const loginUser = (
 > => {
   return async (dispatch) => {
     const response = await auth.login(body);
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       auth.me().then((resp) => {
         const { id, login, email }: AuthPropsType = resp.data;
-        if (resp.resultCode === 0) {
+        if (resp.resultCode === ResultCode.Succsess) {
           dispatch(setAuth({ id, login, email }));
         } else dispatch(setError(resp.messages[0]));
       });
-    } else if (response.resultCode === 10) {
+    } else if (response.resultCode === ResultCode.Captcha) {
       dispatch(getCaptcha());
       dispatch(setError(response.messages[0]));
     } else {
@@ -127,11 +127,11 @@ export const logoutUser = (): ThunkAction<
 > => {
   return async (dispatch) => {
     const response = await auth.logout();
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       dispatch(delAuth());
-      dispatch(setAuth( { id: null, login: null, email: null } ))
+      dispatch(setAuth({ id: null, login: null, email: null }));
       dispatch(delProfile());
-  };
+    };
 };
 }
 export const authReducer = (

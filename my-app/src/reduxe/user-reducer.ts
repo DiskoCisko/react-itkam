@@ -1,4 +1,4 @@
-import { userAPI, UserType } from '../DAL/api';
+import { ResultCode, userAPI, UserType } from '../DAL/api';
 import objectPropAdd from '../components/utils/object-prop-add';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './reduxe';
@@ -155,7 +155,7 @@ export const followUnfloowFlow = async (
 ) => {
   dispatch(fetchingFollow(true, id));
   const response = await apiMethid(id);
-  if (response.resultCode === 0) {
+  if (response.resultCode === ResultCode.Succsess) {
     dispatch(actionCreator(id));
   }
   dispatch(fetchingFollow(false, id));

@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI } from '../DAL/api';
+import { profileAPI, ResultCode } from '../DAL/api';
 import { AppStateType } from './reduxe';
 
 const inintState = {
@@ -49,7 +49,7 @@ export const updateStatus = (
     const response = await profileAPI.updateStatus({
       status,
     });
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       dispatch(changeStatus(status));
     } throw console.log(response);
   };

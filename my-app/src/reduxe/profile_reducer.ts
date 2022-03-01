@@ -1,4 +1,4 @@
-import { profileAPI } from '../DAL/api';
+import { profileAPI, ResultCode } from '../DAL/api';
 import {PhotoType} from '../components/Profile/Photo'
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './reduxe';
@@ -105,7 +105,7 @@ export const saveProfile = (
 > => {
   return async (dispatch) => {
     const response = await profileAPI.saveProfile(body);
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       const response = await profileAPI.getProfile(body.userId);
       dispatch(setProfile(response.data));
       toggleEditeProfileMode(false);
@@ -127,7 +127,7 @@ export const savePhoto = (
 ): ThunkAction<void, AppStateType, unknown, changePhotoActionType> => {
   return async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCode.Succsess) {
       dispatch(changePhoto(response.data.photos));
     }
   };
