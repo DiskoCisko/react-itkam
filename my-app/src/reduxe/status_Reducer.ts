@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from '../DAL/api';
+import { AppStateType } from './reduxe';
 
 const inintState = {
   status: '' as string,
@@ -40,15 +42,11 @@ export const getStatus = (userId: number) => {
   };
 };
 
-type StatusResponseType = {
-  resultCode: number;
-  messages: Array<string> | null;
-  data: object;
-};
-
-export const updateStatus = (status: string) => {
+export const updateStatus = (
+  status: string
+): ThunkAction<void, AppStateType, unknown, changeStatusActionType> => {
   return async (dispatch) => {
-    const response: any = await profileAPI.updateStatus({
+    const response = await profileAPI.updateStatus({
       status,
     });
     if (response.resultCode === 0) {

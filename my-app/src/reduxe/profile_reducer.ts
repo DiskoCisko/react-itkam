@@ -7,10 +7,9 @@ const SET_PROFILE = 'SET_PROFILE';
 const CHANGE_PHOTO = 'CHANGE_PHOTO';
 const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE';
+const DEL_PROFILE = 'DEL_PROFILE';
 
-const inintState = {
-  photos: {} as PhotoType | null,
-};
+const inintState: null = null;
 
 export type ContactsType = {
   github: string;
@@ -40,11 +39,21 @@ type setProfileActionType = {
   type: typeof SET_PROFILE;
   payload: ProfileType;
 };
- 
+
 const setProfile = (body: ProfileType): setProfileActionType => {
   return {
     type: SET_PROFILE,
     payload: body,
+  };
+};
+
+export type delProfileActionType = {
+  type: typeof DEL_PROFILE;
+};
+
+export const delProfile = (): delProfileActionType => {
+  return {
+    type: DEL_PROFILE,
   };
 };
 
@@ -125,20 +134,24 @@ export const savePhoto = (
 };
 
 export const profileReducer = (
-  state = inintState as ProfileType,
+  state = inintState as ProfileType | null,
   action:
     | setProfileActionType
     | setErrorMessageActionType
     | changePhotoActionType
     | toggleEditeProfileModeActionType
+    | delProfileActionType
 ): ProfileType => {
   switch (action.type) {
-    case 'SET_PROFILE': {
+    case SET_PROFILE: {
       return {
         ...action.payload,
       };
     }
-    case 'CHANGE_PHOTO': {
+case DEL_PROFILE: {
+  return inintState;
+}
+    case CHANGE_PHOTO: {
       const newState = {
         ...state,
         photos: action.photo,
@@ -151,13 +164,13 @@ export const profileReducer = (
         errMessage: action.message,
       };
     }
-    case 'TOGGLE_EDITEMODE_PROFILE': {
+    case TOGGLE_EDITEMODE_PROFILE: {
       return {
         ...state,
         editeMode: action.editeMode,
       };
     }
     default:
-      return state as ProfileType;
+      return state as ProfileType | null;
   }
 };

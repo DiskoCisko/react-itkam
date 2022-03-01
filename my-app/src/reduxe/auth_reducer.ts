@@ -1,5 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { auth, authBodyType, AuthPropsType } from '../DAL/api';
+import { delProfile, delProfileActionType } from './profile_reducer';
 import { AppStateType } from './reduxe';
 
 const inintState = {
@@ -121,7 +122,7 @@ export const logoutUser = (): ThunkAction<
   void,
   AppStateType,
   unknown,
-  delAuthActionType | setAuthActionType
+  delAuthActionType | setAuthActionType | delProfileActionType
   
 > => {
   return async (dispatch) => {
@@ -129,6 +130,7 @@ export const logoutUser = (): ThunkAction<
     if (response.data.resultCode === 0) {
       dispatch(delAuth());
       dispatch(setAuth( { id: null, login: null, email: null } ))
+      dispatch(delProfile());
   };
 };
 }

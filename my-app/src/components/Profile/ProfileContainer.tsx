@@ -25,7 +25,10 @@ class ProfileCAPI extends React.Component<PropsType> {
   }
 
   componentDidUpdate(prevProps: PropsType) {
-    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+    if (
+      this.props.match.params.userId !== prevProps.match.params.userId ||
+      !this.props.id
+    ) {
       this.refresheProfile();
     }
   }
