@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { PhotoType } from '../components/Profile/Photo';
-import { ProfileType } from '../reduxe/profile_reducer';
+import { ResultCode, UserType, AuthPropsType, authBodyType, ProfileType, PhotoType } from '../types/type';
 
 type ResponseType<D = {}> = {
   resultCode: ResultCode;
@@ -8,30 +7,10 @@ type ResponseType<D = {}> = {
   data: D;
 };
 
-export enum ResultCode {
-  Succsess = 0,
-  Error = 1,
-  Captcha = 10,
-}
-
-export type UserType = {
-  id: number;
-  name: string;
-  status?: string;
-  photos: PhotoType;
-  followed: boolean;
-};
-
 type getUserResponseType = {
   items: Array<UserType>;
   totalCount?: number;
   error?: string;
-};
-
-export type AuthPropsType = {
-  id: number | null;
-  login: string | null;
-  email: string | null;
 };
 
 type getCaptchaType = {
@@ -104,12 +83,7 @@ export const profileAPI = {
   },
 };
 
-export type authBodyType = {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
-  captcha?: boolean;
-};
+
 
 export const auth = {
   login(body: authBodyType): Promise<ResponseType> {

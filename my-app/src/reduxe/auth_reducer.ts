@@ -1,5 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
-import { auth, authBodyType, AuthPropsType, ResultCode } from '../DAL/api';
+import { auth} from '../DAL/api';
+import { AuthPropsType, ResultCode, authBodyType } from '../types/type';
 import { delProfile, delProfileActionType } from './profile_reducer';
 import { AppStateType } from './reduxe';
 

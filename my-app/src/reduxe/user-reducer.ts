@@ -1,8 +1,9 @@
-import { ResultCode, userAPI, UserType } from '../DAL/api';
+import { userAPI} from '../DAL/api';
 import objectPropAdd from '../components/utils/object-prop-add';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './reduxe';
 import { Dispatch } from 'redux';
+import { UserType, ResultCode, changeTotalCountPageActionType } from '../types/type';
 
 
 
@@ -20,7 +21,7 @@ const FOLLOW_USER = 'FOLLOW_USER';
 const UNFOLLOW_USER = 'UNFOLLOW_USER';
 const SET_USER = 'SET_USER';
 const CHANGE_PAGE = 'CHANGE_PAGE';
-const CHANGE_TOTAL_COUNT_PAGE = 'CHANGE_TOTAL_COUNT_PAGE';
+export const CHANGE_TOTAL_COUNT_PAGE = 'CHANGE_TOTAL_COUNT_PAGE';
 const TOOGLE_IS_FETCH = 'TOOGLE_IS_FETCH';
 const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
@@ -72,10 +73,7 @@ export const changePage = (p: number): changePageActionType => {
   };
 };
 
-export type changeTotalCountPageActionType = {
-  type: typeof CHANGE_TOTAL_COUNT_PAGE;
-  payload: number;
-};
+
 
 export const changeTotalCountPage = (p: number): changeTotalCountPageActionType => {
   return {

@@ -1,5 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI, ResultCode } from '../DAL/api';
+import { profileAPI} from '../DAL/api';
+import { ResultCode } from '../types/type';
 import { AppStateType } from './reduxe';
 
 const inintState = {

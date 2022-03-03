@@ -1,37 +1,17 @@
-import { profileAPI, ResultCode } from '../DAL/api';
-import {PhotoType} from '../components/Profile/Photo'
+import { profileAPI} from '../DAL/api';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './reduxe';
+import { PhotoType, ProfileType, ResultCode, toggleEditeProfileModeActionType } from '../types/type';
 
 const SET_PROFILE = 'SET_PROFILE';
 const CHANGE_PHOTO = 'CHANGE_PHOTO';
 const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
-const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE';
+export const TOGGLE_EDITEMODE_PROFILE = 'TOGGLE_EDITEMODE_PROFILE';
 const DEL_PROFILE = 'DEL_PROFILE';
 
 const inintState: null = null;
 
-export type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
 
-export type ProfileType = {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  errMessage?: string;
-  editeMode?: boolean;
-  photos?: PhotoType;
-};
 
 
 
@@ -79,11 +59,6 @@ const changePhoto = (photo: PhotoType): changePhotoActionType => {
     type: CHANGE_PHOTO,
     photo,
   };
-};
-
-export type toggleEditeProfileModeActionType = {
-  type: typeof TOGGLE_EDITEMODE_PROFILE;
-  editeMode: boolean;
 };
 
 export const toggleEditeProfileMode = (
