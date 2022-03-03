@@ -22,7 +22,6 @@ export type UserType = {
   followed: boolean;
 };
 
-
 type getUserResponseType = {
   items: Array<UserType>;
   totalCount?: number;
@@ -35,21 +34,9 @@ export type AuthPropsType = {
   email: string | null;
 };
 
-
-type ResponseAuthType = {
-
-    data: AuthPropsType;
-    messages: Array<string> | null;
-    resultCode: number;
-};
-
 type getCaptchaType = {
-
-    url: string;
-
+  url: string;
 };
-
-
 
 const instence = axios.create({
   withCredentials: true,
@@ -72,14 +59,15 @@ export const userAPI = {
       });
   },
   followUser(id: string): Promise<ResponseType> {
-    return instence.post(
-      `follow/${id}`,
-      {},
-      {
-        withCredentials: true,
-      }
-    )
-    .then(res => res.data)
+    return instence
+      .post(
+        `follow/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => res.data);
   },
   unfollowUser(id: string): Promise<ResponseType> {
     return instence
