@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import s from './Profile.module.css';
 import common from '../common/CommonStyles.module.css';
 
-export type PhotoType = {
-  large: string;
-  small: string;
-};
+
 
 type PhotoPropsType = {
   isOwner: boolean;

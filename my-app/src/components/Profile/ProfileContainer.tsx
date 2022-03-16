@@ -8,7 +8,6 @@ import {
   getProfile,
   savePhoto,
   toggleEditeProfileMode,
-  toggleEditeProfileModeActionType,
 } from '../../reduxe/profile_reducer';
 import Loader from '../common/Loader';
 import {
@@ -16,8 +15,8 @@ import {
   getStatusSelector,
   getIdSelector,
 } from '../../reduxe/selector';
-import { ProfileType } from '../../reduxe/profile_reducer';
 import { AppStateType } from '../../reduxe/reduxe';
+import { ProfileType, toggleEditeProfileModeActionType } from '../../types/type';
 
 class ProfileCAPI extends React.Component<PropsType> {
   componentDidMount() {

@@ -14,7 +14,7 @@ const initStatev = {
   currentPage: 1,
   isFetch: false,
   isFetchFollow: false,
-  togleFetcgFollow: [] as Array<number> | null,
+  togleFetcgFollow: [] as Array<string> | null,
 };
 
 const FOLLOW_USER = 'FOLLOW_USER';
@@ -27,10 +27,10 @@ const TOGLE_FECHING_FOLLOW = 'TOGLE_FECHING_FOLLOW';
 
 type onFollowActionType = {
   type: typeof FOLLOW_USER;
-  payload: number;
+  payload: string;
 };
 
-export const onFollow = (userId: number): onFollowActionType => {
+export const onFollow = (userId: string): onFollowActionType => {
   return {
     type: FOLLOW_USER,
     payload: userId,
@@ -39,10 +39,10 @@ export const onFollow = (userId: number): onFollowActionType => {
 
 type onUnfollowActionType = {
   type: typeof UNFOLLOW_USER;
-  payload: number;
+  payload: string;
 };
 
-export const onUnfollow = (userId: number): onUnfollowActionType => {
+export const onUnfollow = (userId: string): onUnfollowActionType => {
   return {
     type: UNFOLLOW_USER,
     payload: userId,
@@ -94,13 +94,13 @@ export const onFetch = (): onFetchActionType => {
 
 type fetchingFollowActionType = {
   type: typeof TOGLE_FECHING_FOLLOW;
-  userId: number;
+  userId: string;
   isFetchFollow: boolean;
 };
 
 export const fetchingFollow = (
   isFetchFollow: boolean,
-  userId: number
+  userId: string
 ): fetchingFollowActionType => {
   return {
     type: TOGLE_FECHING_FOLLOW,
@@ -147,20 +147,20 @@ export const followUnfloowFlow = async (
   dispatch: Dispatch<
     fetchingFollowActionType | onUnfollowActionType | onFollowActionType
   >,
-  id: number,
+  id: string,
   apiMethid,
-  actionCreator: (userId: number) => onFollowActionType | onUnfollowActionType
+  actionCreator: (userId: string) => onFollowActionType | onUnfollowActionType
 ) => {
   dispatch(fetchingFollow(true, id));
   const response = await apiMethid(id);
   if (response.resultCode === ResultCode.Succsess) {
-    dispatch(actionCreator(id));
+    dispatch(actionCreator(id)); 
   }
   dispatch(fetchingFollow(false, id));
 };
 
 export const follow = (
-  id: number
+  id: string
 ): ThunkAction<
   void,
   AppStateType,
@@ -172,7 +172,7 @@ export const follow = (
   };
 };
 export const unfollow = (
-  id: number
+  id: string
 ): ThunkAction<void, AppStateType, unknown, onUnfollowActionType> => {
   return async (dispatch) => {
     followUnfloowFlow(
@@ -195,7 +195,7 @@ export const userReducer = (
     | fetchingFollowActionType
 ): typeof initStatev => {
   switch (action.type) {
-    case 'FOLLOW_USER': {
+    case FOLLOW_USER: {
       const newUsers = objectPropAdd(state.users, action.payload, 'id', {
         followed: true,
       });
@@ -205,7 +205,7 @@ export const userReducer = (
       };
       return newState;
     }
-    case 'UNFOLLOW_USER': {
+    case UNFOLLOW_USER: {
       const newUsers = objectPropAdd(state.users, action.payload, 'id', {
         followed: false,
       });
@@ -215,7 +215,7 @@ export const userReducer = (
       };
       return newState;
     }
-    case 'CHANGE_PAGE': {
+    case CHANGE_PAGE: {
       const newCurrentPage = action.payload;
       const newState = {
         ...state,
@@ -223,7 +223,7 @@ export const userReducer = (
       };
       return newState;
     }
-    case 'CHANGE_TOTAL_COUNT_PAGE': {
+    case CHANGE_TOTAL_COUNT_PAGE: {
       const newTotalCount = action.payload;
       const newState = {
         ...state,
@@ -231,7 +231,7 @@ export const userReducer = (
       };
       return newState;
     }
-    case 'SET_USER': {
+    case SET_USER: {
       const newUsers = [...action.payload];
 
       const newState = {
@@ -241,12 +241,12 @@ export const userReducer = (
 
       return newState;
     }
-    case 'TOOGLE_IS_FETCH':
+    case TOOGLE_IS_FETCH:
       return {
         ...state,
         isFetch: !state.isFetch,
       };
-    case 'TOGLE_FECHING_FOLLOW':
+    case TOGLE_FECHING_FOLLOW:
       return {
         ...state,
         togleFetcgFollow: action.isFetchFollow

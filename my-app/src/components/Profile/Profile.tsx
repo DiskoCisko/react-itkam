@@ -3,8 +3,8 @@ import s from './Profile.module.css';
 import Status from './Status.tsx';
 import Photo from './Photo.tsx';
 import ProfileData from './ProfileData.tsx';
-import { PhotoType } from './Photo';
-import { ContactsType, toggleEditeProfileModeActionType } from '../../reduxe/profile_reducer';
+import { ContactsType, PhotoType, toggleEditeProfileModeActionType } from '../../types/type';
+
 
 type ProfilePropsType = {
   isOwner: boolean
