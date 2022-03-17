@@ -168,14 +168,14 @@ export const follow = (
   onFollowActionType
 > => {
   return async (dispatch) => {
-    followUnfloowFlow(dispatch, id, userAPI.followUser.bind(userAPI), onFollow);
+    await followUnfloowFlow(dispatch, id, userAPI.followUser.bind(userAPI), onFollow);
   };
 };
 export const unfollow = (
   id: string
 ): ThunkAction<void, AppStateType, unknown, onUnfollowActionType> => {
   return async (dispatch) => {
-    followUnfloowFlow(
+    await followUnfloowFlow(
       dispatch,
       id,
       userAPI.unfollowUser.bind(userAPI),
