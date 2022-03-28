@@ -10,17 +10,17 @@ const inintState = {
 const CHANGE_STAUS = 'CHANGE_STAUS';
 const SET_STATUS = 'SET_STATUS';
 
-type changeStatusActionType = {
-  type: typeof CHANGE_STAUS;
-  payload: string
-};
+// type changeStatusActionType = {
+//   type: typeof CHANGE_STAUS;
+//   payload: string
+// };
 
-export const changeStatus = (status: string): changeStatusActionType => {
-  return {
-    type: CHANGE_STAUS,
-    payload: status,
-  };
-};
+// export const changeStatus = (status: string): changeStatusActionType => {
+//   return {
+//     type: CHANGE_STAUS,
+//     payload: status,
+//   };
+// };
 
 type setStatusActionType = {
   type: typeof SET_STATUS;
@@ -45,16 +45,17 @@ export const getStatus = (userId: number) => {
 
 export const updateStatus = (
   status: string
-): ThunkAction<void, AppStateType, unknown, changeStatusActionType> => {
+): ThunkAction<void, AppStateType, unknown, setStatusActionType> => {
   return async (dispatch) => {
     const response = await profileAPI.updateStatus({
       status,
     });
     if (response.resultCode === ResultCode.Succsess) {
-      dispatch(changeStatus(status));
-    } throw console.log(response);
+      dispatch(setStatus(status));
+    } else throw console.log(response);
   };
 };
+
 export const statusReducer = (
   state = inintState,
   action: setStatusActionType

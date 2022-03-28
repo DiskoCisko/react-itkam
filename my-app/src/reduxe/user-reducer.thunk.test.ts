@@ -1,6 +1,6 @@
 import { userAPI } from "../DAL/api";
 import { ResultCode } from "../types/type";
-import { changePage, changeTotalCountPage, changeUserPage, fetchingFollow, follow, followUnfloowFlow, getUser, onFetch, onFollow, onUnfollow, setUsers, unfollow } from "./user-reducer";
+import { changePage, changeTotalCountPage, changeUserPage, fetchingFollow, follow, getUser, onFetch, onFollow, onUnfollow, setUsers, unfollow } from "./user-reducer";
 
 jest.mock('../DAL/api');
 
