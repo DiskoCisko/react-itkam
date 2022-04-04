@@ -20,7 +20,7 @@ type setProfileActionType = {
   payload: ProfileType;
 };
 
-const setProfile = (body: ProfileType): setProfileActionType => {
+export const setProfile = (body: ProfileType): setProfileActionType => {
   return {
     type: SET_PROFILE,
     payload: body,
@@ -42,7 +42,7 @@ type setErrorMessageActionType = {
   message: string;
 };
 
-const setErrorMessage = (message: string): setErrorMessageActionType => {
+export const setErrorMessage = (message: string): setErrorMessageActionType => {
   return {
     type: SET_ERROR_MESSAGE,
     message,
@@ -54,7 +54,7 @@ type changePhotoActionType = {
   photo: PhotoType;
 };
 
-const changePhoto = (photo: PhotoType): changePhotoActionType => {
+export const changePhoto = (photo: PhotoType): changePhotoActionType => {
   return {
     type: CHANGE_PHOTO,
     photo,
